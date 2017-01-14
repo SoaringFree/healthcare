@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.healthcare.dao.get.GetDoctorInfoDao;
+import com.healthcare.dao.get.GetDoctorInfosDao;
 import com.healthcare.dao.get.GetUserDao;
 import com.healthcare.dao.get.GetUserDoctorDao;
 
@@ -19,6 +20,9 @@ public class StoredProcedureService {
 		
 		@Autowired
 		private GetDoctorInfoDao getdoctorinfoDao;
+		
+		@Autowired
+		private GetDoctorInfosDao getdoctorinfosDao;
 		
 		@Autowired
 		private GetUserDoctorDao getuserdoctorDao;

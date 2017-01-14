@@ -28,4 +28,45 @@ public class UserDoctorService {
 		}
 		return result;
 	}
+	
+	/**
+	 * 统计某一医生的患者数量
+	 * @param doctorId
+	 * @return
+	 */
+	public int countDoctorUsers(String doctorId) {
+		int count = 0;
+		if (!"".equals(doctorId)) {
+			String filter = String.format(" DoctorId='%s' ", doctorId);
+			count = userdoctorDao.count(filter);
+		}
+		return count;
+	}
+	
+	/**
+	 * 为患者指定医生
+	 * @param userDoctor
+	 * @return
+	 */
+	public Boolean assignDoctor(UserDoctor userDoctor){
+		Boolean flag = false;
+		if (0 < userdoctorDao.save(userDoctor))
+			flag = true;
+		return flag;
+	}
+	
+	/**
+	 * 删除用户的指定医生
+	 * @param id
+	 * @return
+	 */
+	public Boolean deleteDoctor(int id) {
+		Boolean flag = false;
+		if (0 < id) {
+			if (0 < userdoctorDao.delete(id)) {
+				flag = true;
+			}
+		}
+		return flag;
+	}
 }

@@ -147,8 +147,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 						
 						<div class="widget-body">
-							<br />
-						    <!-- the result table -->
 							<table class="table table-striped table-bordered responsive">
 								<thead>
 									<tr>
@@ -179,15 +177,68 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								&nbsp;正在加载...
 								</span>
 							</div>
-							
+						</div>
+					
+					</div>	
+					</div>
+					</div>
+					
+					<!-- 可用医生 -->
+					<div class="widget-container">
+					<div class="widget-box">
+					<div class="box-inner">
+						<div class="widget-header">
+							<h5 class="widget-title"><b>可指定的医生</b></h5>
+		                    <div class="widget-toolbar">
+								<a href="#" data-action="fullscreen" class="orange2">
+		                            <i class="ace-icon fa fa-expand"></i>
+		                        </a>
+		                        <a href="#" data-action="collapse">
+		                            <i class="ace-icon fa fa-chevron-up"></i>
+		                        </a>
+	                        </div>			
+						</div>
+						
+						<div class="widget-body">
+							<table class="table table-striped table-bordered responsive">
+								<thead>
+									<tr>
+										<th style="text-align:center;">序号</th>
+										<th style="text-align:center; display:none">ID</th>
+										<th style="text-align:center;">姓名</th>
+										<th style="text-align:center;">职称</th>
+										<th style="text-align:center;">科室</th>
+										<th style="text-align:center;">患者数量</th>
+										<th style="text-align:center;">操作</th>
+									</tr>
+								</thead>
+								<tbody id="able_doctor_tby">
+									<tr>
+										<td style="text-align:center; vertical-align:middle;"></td>
+										<td style="text-align:center; display:none;"></td>
+										<td style="text-align:center; vertical-align:middle;"></td>
+										<td style="text-align:center; vertical-align:middle;"></td>
+										<td style="text-align:center; vertical-align:middle;"></td>
+										<td style="text-align:center; vertical-align:middle;"></td>
+										<td style="text-align:center;"></td>
+									</tr>
+								</tbody>
+							</table>
+							<div id="loading_able_doctor" class="center">
+								<span>
+								<img src="<%=path %>/assets/img/ajax-loaders/ajax-loader-10.gif" title="img/ajax-loaders/ajax-loader-10.gif">
+								&nbsp;正在加载...
+								</span>
+							</div>
 							<div>
-								<ul id="paginator"></ul>
+								<ul id="able_doctor_paginator"></ul>
 							</div>
 						</div>
 					
 					</div>	
 					</div>
 					</div>
+					
 					</div>
 				
 				</div>
@@ -196,114 +247,89 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div><!-- /.section:basics/sidebar -->
     </div><!-- /.main container -->
 
-    
-    <!-- detail / doctor info -->
-	<div class="modal fade bold" style="display: none;" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-	    <div class="modal-dialog">
+
+    <!-- Delete -->
+	<div class="modal fade" style="display: none;" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-dialog bold">
 	        <div class="modal-content">
 	            <div class="modal-header no-padding">
 	                <div class="table-header" style="text-align:center">
-	                    <button type="button" class="close" onclick="detail_close()" aria-hidden="true">
+	                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 	                        <span class="white">&times;</span>
 	                    </button>
-                    	<span style="font-size:16px;color:black;" ><b>医生信息</b></span>
+                    	<span style="font-size:16px;color:black;"><b>提示信息</b></span>
 	                </div>
 	            </div>
-	            
-	            <div class="modal-body" style="padding-bottom:10px">
-	            	
-	            
-	            	<form id="detail_form" name="detail_form" class="form-horizontal">
-						<div class="form-group center" style="display:none">
-							<input type="text" class="form-control" id="detail_id" name="id" readOnly />
-						</div>
-			            <div class="form-group center">
-			            	<label class="col-lg-3 control-label">用户名</label>
-			                <div class="col-xs-8 col-lg-8">
-			                    <input type="text" class="form-control" id="detail_doctorid" name="doctorId" readOnly />
-			                </div>
-			            </div>
-			            
-			            <div class="form-group center">
-			            	<label class="col-lg-3 control-label">姓名</label>
-			                <div class="col-xs-8 col-lg-8">
-			                    <input type="text" class="form-control" id="detail_username" name="username"  readOnly/>
-			                </div>
-			            </div>
-			            
-			            <div class="form-group center">
-			            	<label class="col-lg-3 control-label">职称</label>
-			                <div class="col-xs-8 col-lg-8">
-			                    <input type="text" class="form-control" id="detail_professional" name="professional" readOnly/>
-			                </div>
-			            </div>
-			             
-			            <div class="form-group">
-			            	<label class="col-lg-3 control-label">专家</label>
-			                <div class="col-xs-8 col-lg-8">
-			                    <select id="expert" name="expert">
-						        	<option value="0">否</option>
-		                			<option value="1">是</option>
-		                		</select>
-			                </div>
-			            </div>
-			            
-			            <div class="form-group">
-			            	<label class="col-lg-3 control-label">科室</label>
-			            	<div class="col-xs-8 col-lg-8">
-								<select id="detail_departmentId" name="departmentId">
-		                		</select>
-	                		</div>
-						</div>
-									            
-			            <div class="form-group">
-			            	<label class="col-lg-3 control-label">简介</label>
-			                <div class="col-xs-8 col-lg-8">
-			                    <textarea cols="43" rows="4" id="detail_brief" name="brief" style="font-size:14px; color:Black; border-style: solid;  resize: none;" readOnly> 
-	                    		</textarea>
-			                </div>
-			            </div>
-			            
-			            <div class="form-group">
-			            	<label class="col-lg-3 control-label">专长</label>
-			                <div class="col-xs-8 col-lg-8">
-			                    <textarea cols="43" rows="2" id="detail_speciality" name="speciality" style="font-size:14px; color:Black; border-style: solid; resize: none;" readOnly> 
-	                    		</textarea>
-			                </div>
-			            </div>
-
-		            </form>
-	        	</div>
-
-	    		<div class="modal-footer">
+	            <br />
+	            <div class="modal-body" align="center" style="padding-top:0px">
+	                <span>
+	                	<input type="hidden" id="delete_data_id" name="delete_data_id"/>
+	                    <textarea cols="60" rows="3" id="delete_msg" style="text-align:center; font-size:14px; color:Black; border-style: solid; border-color: #FFFFFF; resize: none;" disabled> 
+	                    </textarea>
+	                </span>
+	            </div>
+	            <div class="modal-footer no-margin-top">
 	                <div class="col-lg-4 col-lg-offset-7">
-	                	<div class="col-lg-4" id="detail_enable_edit_div" >
-                          	<button type="button" class="btn btn-sm btn-success" id="detail_enable_edit" onclick="detail_enable_edit()">编辑</button>
-                      	</div>
-	            		<div class="col-lg-4"  id="detail_edit_btn_div">
-                          	<button type="button" class="btn btn-sm btn-primary" id="detail_edit_btn" onclick="datailEditSubmit()">保存</button>
-                      	</div>
-                      	<div class="col-lg-4">
-                          	<button type="button" class="btn btn-sm btn-default" id="detail_close" onclick="detail_close()" >关闭</button>
-                      	</div>
+		            	<div class="col-lg-4" >
+                           	<button type="button" class="btn btn-sm btn-primary" id="deleteBtn" onclick="deleteSubmit()">删除</button>
+                       	</div>
+		            	<div class="col-lg-4">
+                           	<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">取消</button>
+                       	</div>
+		            	
                    	</div>
 	            </div>
-
-	    	</div>
+	        </div>
+	        <!-- /.modal-content-->
 	    </div>
-    </div>
+	</div>
+	
+	<!-- assign -->
+	<div class="modal fade" style="display: none;" id="assignModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-dialog bold">
+	        <div class="modal-content">
+	            <div class="modal-header no-padding">
+	                <div class="table-header" style="text-align:center">
+	                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+	                        <span class="white">&times;</span>
+	                    </button>
+                    	<span style="font-size:16px;color:black;"><b>提示信息</b></span>
+	                </div>
+	            </div>
+	            <br />
+	            <div class="modal-body" align="center" style="padding-top:0px">
+	                <span>
+	                	<input type="hidden" id="assign_user_id" name="assign_user_id"/>
+	                	<input type="hidden" id="assign_doctor_id" name="assign_doctor_id"/>
+	                    <textarea cols="60" rows="3" id="assign_msg" style="text-align:center; font-size:14px; color:Black; border-style: solid; border-color: #FFFFFF; resize: none;" disabled> 
+	                    </textarea>
+	                </span>
+	            </div>
+	            <div class="modal-footer no-margin-top">
+	                <div class="col-lg-4 col-lg-offset-7">
+		            	<div class="col-lg-4" >
+                           	<button type="button" class="btn btn-sm btn-primary" id="assignBtn" onclick="assignSubmit()">指定</button>
+                       	</div>
+		            	<div class="col-lg-4">
+                           	<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">取消</button>
+                       	</div>
+		            	
+                   	</div>
+	            </div>
+	        </div>
+	        <!-- /.modal-content-->
+	    </div>
+	</div>
     
     
     <script type="text/javascript">
 
 		var userList = null;
 		var userDoctors = null;
-		var departments = null;
-
 
 		$(document).ready(function() {
 			getUsers();
-			loadDepartments();
+			getAbleDoctors();
 		});
 	
 		function search() {
@@ -330,7 +356,207 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					loading("loading_user", false);
 					// 装填表格
 	                initTable(userList, data.page);
-					detail(0);
+					getuserdoctors(0);
+					
+					// 获取currentPage 请求页面
+					var currentPage = data.page;
+					// 获取totalPages 总页面
+					var totalPages = data.total;
+					// 获取numberofPages 显示的页面
+					var numberofPages = totalPages > 10 ? 10 : totalPages;
+					//alert(data.currentPage + " : " + data.totalPage + " : " + numberofPages);
+					var options = {
+						bootstrapMajorVersion: 3,
+						size: "mini",
+	                    currentPage: currentPage,       // 当前页
+	                    totalPages: totalPages,      	// 总页数
+	                    numberofPages: numberofPages,   // 显示的页数
+	                    itemTexts: function (type, page, current) {
+	                        switch (type) {
+	                            case "first":
+	                                return "|<<";
+	                                break;
+	                            case "prev":
+	                                return "<";
+	                                break;
+	                            case "next":
+	                                return ">";
+	                                break;
+	                            case "last":
+	                                return ">>|";
+	                                break;
+	                            case "page":
+	                                return page;
+	                                break;
+	                        }
+	                    },
+	                    onPageClicked: function (event, originalEvent, type, page) {
+	                    	var userId = $("#userId").val();
+							var userName = $("#userName").val();
+	                    	loading("loading_user");
+	                        $.ajax({
+								url: url,
+								datatype: "json",
+								type: "GET",
+								data: {page: page, rows: 10, userId: userId, userName: userName},
+								success: function(data) {
+									userList = null;
+									userList = data.result;
+									loading("loading_user", false);
+					                initTable(userList, page);
+					                getuserdoctors(0);
+					            }
+					        });
+					     }  
+					
+					};
+					
+					$("#paginator").bootstrapPaginator(options);
+				}
+			});
+		
+		};
+	
+		/* 装填用户信息 */
+		function initTable(userList, currentPage) {
+			$("#tby tr").remove();
+			if (null != userList) {
+			
+				$.each(userList, function(index, item) {
+					
+					var tr = $("<tr></tr>");
+					var td0 = $('<td style="text-align:center; vertical-align:middle;">' + ((currentPage - 1) * 5 + index + 1) + '</td>');
+					var td1 = $('<td style="text-align:center; display:none;">' 		 + item.id 				+ '</td>');
+					var td2 = $('<td style="text-align:center; vertical-align:middle;">' + item.userId       	+ '</td>');
+					var td3 = $('<td style="text-align:center; vertical-align:middle;">' + item.userName      	+ '</td>');
+					var td4 = $('<td style="text-align:center;">' +
+	            					'<a class="btn btn-success btn-xs"  onclick=" getuserdoctors(' + index + ') ">'  +
+	                					'<i class="glyphicon glyphicon-zoom-in icon-white" ></i>' +
+	                						'详情' +
+	            					'</a>' + 
+	        					'</td>'
+	        					);
+	
+					tr.append(td0).append(td1).append(td2)
+						.append(td3).append(td4);
+					
+					$("#tby").append(tr);
+					
+				});
+			}
+		}
+		
+		
+		/****************************** 患者医生信息 ********************************/
+		var selectedUserIndex = null;
+		function getuserdoctors(index) {
+			$("#user_doctor_title b").remove();
+			var title = $("<b>" + userList[index].userName + " 的指定医生</b>");
+			$("#user_doctor_title").append(title);
+			selectedUserIndex = index;
+			getUserDoctors(userList[index].userId);
+		}
+		
+		function getUserDoctors(userId) {
+			userDoctors = null;
+			loading("loading_doctor");
+			$.ajax({
+				type: "GET",
+				url: "<%=path%>/doctormanage/getuserdoctors",
+				data: {userId: userId},
+				success: function(data) {
+					loading("loading_doctor", false);
+					if (data.success == true) {
+						userDoctors = data.result;
+						initUserDoctorTable(userDoctors);
+					} else {
+						alert("医生信息加载失败，请重试.");
+					}
+				}
+			});
+		}
+		
+		/* 装填患者医生信息 */
+		function initUserDoctorTable(userDoctors) {
+			$("#user_doctor_tby tr").remove();
+			if (null != userDoctors) {
+				$.each(userDoctors, function(index, item) {
+					var tr = $("<tr></tr>");
+					var td0 = $('<td style="text-align:center; vertical-align:middle;">' + (index + 1) + '</td>');
+					var td1 = $('<td style="text-align:center; display:none;">' 		 + item.id 				+ '</td>');
+					var td2 = $('<td style="text-align:center; vertical-align:middle;">' + item.userName      	+ '</td>');
+					var td3 = $('<td style="text-align:center; vertical-align:middle;">' + item.professional   	+ '</td>');
+					var td4 = $('<td style="text-align:center; vertical-align:middle;">' + item.department   	+ '</td>');
+					var td5 = $('<td style="text-align:center; vertical-align:middle;">' + item.bindDate    	+ '</td>');
+					var td6 = $('<td style="text-align:center;">' + 
+            					'<a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal" onclick="deleteConfirm(' + index + ', ' + item.id + ')">' +
+                					'<i class="glyphicon glyphicon-trash icon-white"></i>' +
+                						'删除' +
+            					'</a>' +
+	        					'</td>'
+	        					);
+	
+					tr.append(td0).append(td1).append(td2)
+						.append(td3).append(td4).append(td5).append(td6);
+					
+					$("#user_doctor_tby").append(tr);
+				});
+			}
+		}
+		
+		
+		/****************************** 删除指定医生 ********************************/
+    	function deleteConfirm(index, dataId) {
+			
+			$("#delete_data_id").val(dataId);
+			var docName = userDoctors[index].userName;
+			var userName = userList[selectedUserIndex].userName;
+			var msg = "您确定要删除\r\n" + 
+						userName + " 的指定医生 " + docName + " 吗?";
+			$("#delete_msg").val(msg);
+		};
+		
+		function deleteSubmit() {
+			var id = $("#delete_data_id").val();
+			$.ajax({
+				url: "<%=path%>/doctormanage/deletedoctor",
+				type: "POST",
+				data: {id: id},
+				success: function(data) {
+					if (data.success == true) {
+						$("#deleteModal").modal("hide");
+						getuserdoctors(selectedUserIndex);
+						getAbleDoctors();
+					} else {
+						alert("删除失败，请重试.");
+					}
+				}
+			});
+		};
+		
+		
+		/****************************** 可用医生信息 ********************************/
+		var ableDoctors = null;
+		var users = null;
+		function getAbleDoctors(){
+
+			loading("loading_able_doctor");
+			var url= "<%=basePath%>/doctormanage/getdoctorinfos";
+			$.ajax({
+				url: url,
+				datatype: "json",
+				type: "GET",
+				data: {page: 1, rows: 10},
+				success: function(data) {
+					
+					// 解析data
+					ableDoctors = null;
+					ableDoctors = data.result;
+					users = null;
+					users = data.users;
+					loading("loading_able_doctor", false);
+					// 装填表格
+	                initAbleDoctorTable(ableDoctors, users, data.page);
 					
 					// 获取currentPage 请求页面
 					var currentPage = data.page;
@@ -364,234 +590,106 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                        }
 	                    },
 	                    onPageClicked: function (event, originalEvent, type, page) {
-	                    	var userId = $("#userId").val();
-							var userName = $("#userName").val();
-	                    	loading();
+	                    	loading("loading_able_doctor");
 	                        $.ajax({
 								url: url,
 								datatype: "json",
 								type: "GET",
-								data: {page: page, rows: 10, userId: userId, userName: userName},
+								data: {page: page, rows: 10},
 								success: function(data) {
-									userList = null;
-									userList = data.result;
-									loading(false);
-					                initTable(userList, page);
-					                detail(0);
+									ableDoctors = null;
+									ableDoctors = data.result;
+									users = null;
+									users = data.users;
+									loading("loading_able_doctor", false);
+					                initAbleDoctorTable(ableDoctors, users, page);
 					            }
 					        });
 					     }  
 					
 					};
 					
-					$("#paginator").bootstrapPaginator(options);
-				}
-			});
-		
-		};
-	
-		/* 装填用户信息 */
-		function initTable(userList, currentPage) {
-			$("#tby tr").remove();
-			if (null != userList) {
-			
-				$.each(userList, function(index, item) {
-					
-					var tr = $("<tr></tr>");
-					var td0 = $('<td style="text-align:center; vertical-align:middle;">' + ((currentPage - 1) * 5 + index + 1) + '</td>');
-					var td1 = $('<td style="text-align:center; display:none;">' 		 + item.id 				+ '</td>');
-					var td2 = $('<td style="text-align:center; vertical-align:middle;">' + item.userId       	+ '</td>');
-					var td3 = $('<td style="text-align:center; vertical-align:middle;">' + item.userName      	+ '</td>');
-					var td4 = $('<td style="text-align:center;">' +
-	            					'<a class="btn btn-success btn-xs"  onclick=" detail(' + index + ') ">'  +
-	                					'<i class="glyphicon glyphicon-zoom-in icon-white" ></i>' +
-	                						'详情' +
-	            					'</a>' + 
-	        					'</td>'
-	        					);
-	
-					tr.append(td0).append(td1).append(td2)
-						.append(td3).append(td4);
-					
-					$("#tby").append(tr);
-					
-				});
-			}
-		}
-		
-		
-		/****************************** 患者医生信息 ********************************/
-		
-		function detail(index) {
-			$("#user_doctor_title b").remove();
-			var title = $("<b>" + userList[index].userName + " 的指定医生</b>");
-			$("#user_doctor_title").append(title);
-			getUserDoctors(userList[index].userId);
-			//$("#detailModal").modal("show");
-		}
-		
-		
-		function getUserDoctors(userId) {
-			userDoctors = null;
-			loading("loading_doctor");
-			$.ajax({
-				type: "GET",
-				url: "<%=path%>/doctormanage/getuserdoctors",
-				data: {userId: userId},
-				success: function(data) {
-					loading("loading_doctor", false);
-					if (data.success == true) {
-						userDoctors = data.result;
-						initUserDoctorTable(userDoctors);
-					} else {
-						alert("医生信息加载失败，请重试.");
-					}
+					$("#able_doctor_paginator").bootstrapPaginator(options);
 				}
 			});
 		}
 		
-		/* 装填用户信息 */
-		function initUserDoctorTable(userDoctors) {
-			$("#user_doctor_tby tr").remove();
-			if (null != userDoctors) {
-			
-				$.each(userDoctors, function(index, item) {
-					
+		function initAbleDoctorTable(doctors, users, currentPage) {
+			$("#able_doctor_tby tr").remove();
+			if (null != doctors) {	
+				$.each(doctors, function(index, item) {
 					var tr = $("<tr></tr>");
 					var td0 = $('<td style="text-align:center; vertical-align:middle;">' + (index + 1) + '</td>');
 					var td1 = $('<td style="text-align:center; display:none;">' 		 + item.id 				+ '</td>');
 					var td2 = $('<td style="text-align:center; vertical-align:middle;">' + item.userName      	+ '</td>');
 					var td3 = $('<td style="text-align:center; vertical-align:middle;">' + item.professional   	+ '</td>');
 					var td4 = $('<td style="text-align:center; vertical-align:middle;">' + item.department   	+ '</td>');
-					var td5 = $('<td style="text-align:center; vertical-align:middle;">' + item.bindDate    	+ '</td>');
+					var td5 = $('<td style="text-align:center; vertical-align:middle;">' + users[index] 	   	+ '</td>');
 					var td6 = $('<td style="text-align:center;">' +
-	            					'<a class="btn btn-success btn-xs"  onclick=" detail(' + index + ') ">'  +
-	                					'<i class="glyphicon glyphicon-zoom-in icon-white" ></i>' +
-	                						'详情' +
-	            					'</a>' + 
+	            					'<a class="btn btn-warning btn-xs" data-toggle="modal" onclick="assigndoctor(' + index + ')">' +
+	                					'<i class="glyphicon glyphicon-plus-sign white"></i>' +
+	                						'指定' +
+	            					'</a>' +
 	        					'</td>'
 	        					);
 	
 					tr.append(td0).append(td1).append(td2)
 						.append(td3).append(td4).append(td5).append(td6);
 					
-					$("#user_doctor_tby").append(tr);
+					$("#able_doctor_tby").append(tr);
+					
 				});
 			}
 		}
 		
-		
-		
-		function loadDepartments() {
-			departments = null;
-			$.ajax({
-				type: "GET",
-				url: "<%=path%>/department/getdepartments",
-				data: {},
-				success: function(data) {
-					if (data.success == true) {
-						departments = data.result;
-					} else {
-						alert("科室信息加载失败，请重试.");
-					}
+		function isAbleDocto(doctorId) {
+			var able = true;
+			$.each(userDoctors, function(index, item){
+				if (item.doctorId == doctorId) {
+					able = false;
 				}
 			});
+			return able;
 		}
 		
-		function createDepartmentSelect(name, data) {
-			$("#" + name).empty();
-			$.each(data, function (index, item) {		
-				$("#"+ name).append("<option value='"+ item.departmentId +"'>"+ item.department +"</option>");
-			});
-		}
-		
-
- 		/****************************** 医生信息 ********************************/
-
-    	function detail111111(index) {
-    		$.ajax({
-				type: "GET",
-				url: "<%=path%>/doctormanage/getdoctorinfo",
-				data: {doctorId: userList[index].userId},
-				success: function(data) {
-					createDepartmentSelect("detail_departmentId", departments);
-					if (data.success == true) {
-						loadDoctorInfoToDetail(index, true, data.doctorinfo[0]);
-					} else {
-						loadDoctorInfoToDetail(index, false, null);
-					}
-					detailControll();
+		function assigndoctor(index) {
+			if (userDoctors.length >= 3) {
+				alert("用户指定医生已达到上限.");
+			} else {
+				if (isAbleDocto(ableDoctors[index].doctorId)) {
+					$("#assign_user_id").val(userList[selectedUserIndex].userId);
+					$("#assign_doctor_id").val(ableDoctors[index].doctorId);
+					var docName = ableDoctors[index].userName;
+					var userName = userList[selectedUserIndex].userName;
+					var msg = "您确定要指定\r\n" + 
+								docName + " 为 " + userName + " 的医生吗?";
+					$("#assign_msg").val(msg);
+					$("#assignModal").modal("show");
+				} else {
+					alert("不能重复指定该医生.");
 				}
-			});
-		};
-
-		function loadDoctorInfoToDetail(index, notnull, userinfo){
-    		$('#detail_doctorid').val(userList[index].userId);
-    		$('#detail_username').val(userList[index].userName);
-
-    		if (notnull == true) {
-    			$('#detail_id').val(userinfo.id);
-		   		$('#detail_professional').val(userinfo.professional);
-		   		$('#detail_expert').val(userinfo.expert);
-		   		$('#detail_departmentId').val(userinfo.departmentId);
-		   		$('#detail_brief').val(userinfo.brief);
-		   		$('#detail_speciality').val(userinfo.speciality);
-
-    		} else {
-    			$('#detail_id').val(0);
-	   			$('#detail_professional').val('');
-		   		$('#detail_expert').val(0);
-		   		$('#detail_departmentId').val('');
-		   		$('#detail_brief').val('');
-		   		$('#detail_speciality').val('');
-    		}
+			}
 		}
 		
-		function detailControll() {
-			$("#detail_enable_edit_div").show();
-    		$("#detail_repassword_div").hide();
-    		$("#detail_edit_btn_div").hide();
-    		
-    		$("#detail_professional").attr("readonly");
-    		$("#detail_expert").attr("readonly");
-    		$("#detail_brief").attr("readonly");
-    		$("#detail_speciality").attr("readonly");
-	
-			$("#detailModal").modal("show");
-		}
-		
-		function detail_enable_edit() {
-			$("#detail_enable_edit_div").hide();
-			$("#detail_repassword_div").show();
-			$("#detail_edit_btn_div").show();
-			
-			$("#detail_professional").removeAttr("readonly");
-    		$("#detail_expert").removeAttr("readonly");
-    		$("#detail_brief").removeAttr("readonly");
-    		$("#detail_speciality").removeAttr("readonly");
-		}
-		
-		function detail_close() {
-			$("#detailModal").modal("hide");
-			
-		}
-
-		function datailEditSubmit() {
+		function assignSubmit() {
+			var userId = $("#assign_user_id").val();
+			var doctorId = $("#assign_doctor_id").val();
 			$.ajax({
+				url: "<%=path%>/doctormanage/assigndoctor",
 				type: "POST",
-				url: "<%=path%>/doctormanage/editdoctorinfo",
-				data: $("#detail_form").serialize(),
+				data: {userId: userId, doctorId: doctorId},
 				success: function(data) {
 					if (data.success == true) {
-						detail_close();
-						getDoctors();
+						$("#assignModal").modal("hide");
+						getuserdoctors(selectedUserIndex);
+						getAbleDoctors();
 					} else {
-						alert("修改失败，请重试.");
+						alert("删除失败，请重试.");
 					}
 				}
 			});
 		}
-
+		
     	
     	/****************************** 加载动画 ********************************/
     	function loading(loadingId, flag) {

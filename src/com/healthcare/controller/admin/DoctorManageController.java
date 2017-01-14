@@ -1,5 +1,7 @@
 package com.healthcare.controller.admin;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +19,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.healthcare.model.DoctorInfo;
+import com.healthcare.model.UserDoctor;
 import com.healthcare.service.DoctorInfoService;
 import com.healthcare.service.StoredProcedureService;
+import com.healthcare.service.UserDoctorService;
 import com.healthcare.service.UserService;
 
 @Controller
@@ -36,6 +40,9 @@ public class DoctorManageController {
 	
 	@Autowired
 	private DoctorInfoService doctorinfoSrv;
+	
+	@Autowired
+	private UserDoctorService userdoctorSrv;
 	
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -145,5 +152,65 @@ public class DoctorManageController {
 		return map;
 	}
 	
+	@RequestMapping(value = "/deletedoctor", method = RequestMethod.POST)
+	@ResponseBody
+	public Object deleteDoctors(int id, HttpServletRequest request) {
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		if(userdoctorSrv.deleteDoctor(id)) {
+			map.put("success", true);
+		} else {
+			map.put("success", false);
+		}
+		return map;
+	}
 	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/getdoctorinfos", method = RequestMethod.GET)
+	@ResponseBody
+	public Object getDoctorInfos(int page, int rows, HttpServletRequest request) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		Object body = null;
+		List<DoctorInfo> docInfo = null;
+		List<Integer> users = new ArrayList<Integer>();
+		int total = 0;
+
+		if(null!=(body = spSrv.executeSP("getdoctorinfos", new Object[]{page, rows}))) {
+			map.put("result", body);
+			docInfo = (List<DoctorInfo>)body;
+		}
+			
+		total = doctorinfoSrv.countDoctorInfos();
+		if (null != docInfo && !docInfo.isEmpty()) {
+			for (DoctorInfo di : docInfo) {
+				users.add(userdoctorSrv.countDoctorUsers(di.getDoctorId()));
+			}
+		}
+		
+		map.put("users", users);
+		map.put("total", (int)(total/rows + 1));
+		map.put("page", page);
+		map.put("records", total);
+		
+		return map;
+	}
+	
+	@RequestMapping(value = "/assigndoctor", method = RequestMethod.POST)
+	@ResponseBody
+	public Object assignDoctor(String userId, String doctorId, HttpServletRequest request) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		UserDoctor ud = new UserDoctor();
+		ud.setId(0);
+		ud.setUserId(userId);
+		ud.setDoctorId(doctorId);
+		ud.setBindDate(new Date());
+		
+		if(userdoctorSrv.assignDoctor(ud)) {
+			map.put("success", true);
+		} else {
+			map.put("success", false);
+		}
+		return map;
+	}
 }

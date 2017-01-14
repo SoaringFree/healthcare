@@ -26,5 +26,12 @@ public class DoctorInfoService {
 		}
 	}
 	
-	
+	/**
+	 * 统计医生信息总数
+	 * @return
+	 */
+	public int countDoctorInfos() {
+		return doctorinfoDao.count();
+	}
+
 }
