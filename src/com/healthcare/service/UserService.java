@@ -42,10 +42,10 @@ public class UserService {
 		} else if (!"".equals(userName)) {
 			filter = String.format(" UserName='%s' ", userName);
 		}
-
+		
 		if (!"".equals(filter) && 0 != roleId) {
 			filter += String.format(" AND RoleId=%d ", roleId);
-		} else if (-1 != roleId) {
+		} else if (0 != roleId) {
 			filter = String.format(" RoleId=%d ", roleId);
 		}
 

@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.healthcare.model.FamilyInfo;
 import com.healthcare.model.User;
 import com.healthcare.model.UserInfo;
+import com.healthcare.service.FamilyInfoService;
 import com.healthcare.service.StoredProcedureService;
 import com.healthcare.service.UserInfoService;
 import com.healthcare.service.UserService;
@@ -47,6 +49,9 @@ public class UserManageController {
 	
 	@Autowired
 	private UserInfoService userinfoSrv;
+	
+	@Autowired
+	private FamilyInfoService familySrv;
 	
 	
 	@RequestMapping(value = "/userindex", method = RequestMethod.GET)
@@ -197,5 +202,74 @@ public class UserManageController {
 		return map;
 	}
 	
+	
+	@RequestMapping(value = "/getfamilyinfo", method = RequestMethod.GET)
+	@ResponseBody
+	public Object getFamilyInfo(String userId, HttpServletRequest request) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("success", false);
+		Object body = null;
+		if (!"".equals(userId)) {
+			if(null!=(body = spSrv.executeSP("getfamilyinfo", new Object[]{userId}))) {
+				map.clear();
+				map.put("success", true);
+				map.put("result", body);
+			}	
+		}
+		
+		return map;
+	}
+	
+	@RequestMapping(value = "/searchfamily", method = RequestMethod.GET)
+	@ResponseBody
+	public Object searchFamily(int page, int rows, HttpServletRequest request) {
+		String userId = request.getParameter("userId");
+		String userName = request.getParameter("userName");
 
+		Map<String, Object> map = new HashMap<String, Object>();
+		Object body = null;
+		int total = 0;
+		
+		if (!"".equals(userId) || !"".equals(userName)) {
+			if(null!=(body = spSrv.executeSP("getuser", new Object[]{page, rows, userId, userName, 4})))
+				map.put("result", body);
+			total = userSrv.getUserNumbers(userId, userName, 4);
+		} 
+
+		map.put("total", (int)(total/rows + 1));
+		map.put("page", page);
+		map.put("records", total);
+		
+		return map;
+	}
+	
+	@RequestMapping(value = "/addfamily", method = RequestMethod.POST)
+	@ResponseBody
+	public Object addFamily(FamilyInfo family, HttpServletRequest request) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		Date dt = new Date();
+		family.setBindDate(dt);
+		
+		if (familySrv.addfamily(family)) {
+			map.put("success", true);
+		} else {
+			map.put("success", false);
+		}
+		
+		return map;
+	}
+	
+	@RequestMapping(value = "/deletefamily", method = RequestMethod.POST)
+	@ResponseBody
+	public Object deleteFamily(int id, HttpServletRequest request) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if (familySrv.deletefamily(id)) {
+			map.put("success", true);
+		} else {
+			map.put("success", false);
+		}
+		
+		return map;
+	}
 }

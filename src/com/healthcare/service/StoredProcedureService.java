@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.healthcare.dao.get.GetDoctorInfoDao;
 import com.healthcare.dao.get.GetDoctorInfosDao;
+import com.healthcare.dao.get.GetFamilyInfoDao;
 import com.healthcare.dao.get.GetUserDao;
 import com.healthcare.dao.get.GetUserDoctorDao;
 
@@ -26,6 +27,9 @@ public class StoredProcedureService {
 		
 		@Autowired
 		private GetUserDoctorDao getuserdoctorDao;
+		
+		@Autowired
+		private GetFamilyInfoDao getfamilyinfoDao;
 		
 		
 		/**

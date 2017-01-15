@@ -1,5 +1,8 @@
 package com.healthcare.model;
 
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.healthcare.model.base.JavaBean;
@@ -32,6 +35,21 @@ public class FamilyInfo extends JavaBean {
 	 */
 	@JsonInclude(Include.NON_NULL)
 	private String relationship;
+	
+	/**
+	 * 指定时间
+	 */
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+	private Date bindDate;
+	
+	
+	/************************** 存储过程结果集包含 ************************/
+	/**
+	 * 亲属姓名
+	 */
+	@JsonInclude(Include.NON_NULL)
+	private String familyName;
+	
 
 	public String getFamilyId() {
 		return familyId;
@@ -53,8 +71,24 @@ public class FamilyInfo extends JavaBean {
 		return relationship;
 	}
 
+	public Date getBindDate() {
+		return bindDate;
+	}
+
+	public void setBindDate(Date bindDate) {
+		this.bindDate = bindDate;
+	}
+
 	public void setRelationship(String relationship) {
 		this.relationship = relationship;
+	}
+
+	public String getFamilyName() {
+		return familyName;
+	}
+
+	public void setFamilyName(String familyName) {
+		this.familyName = familyName;
 	}
 	
 	
