@@ -55,8 +55,7 @@ public class UserService {
 			count = userDao.count(filter);
 		
 		return count;
-	}
-	
+	}	
 	
 	/**
 	 * 新建用户时，验证用户名的合法性
@@ -71,8 +70,7 @@ public class UserService {
 		} else {
 			return false;
 		}
-	}
-	
+	}	
 	
 	/**
 	 * 新建用户
@@ -92,7 +90,6 @@ public class UserService {
 		}
 	}
 	
-	
 	/**
 	 * 修改用户信息 - 密码，姓名
 	 * @param userinfo
@@ -110,8 +107,7 @@ public class UserService {
 			return false;
 		}
 	}
-	
-	
+		
 	/**
 	 * 删除用户
 	 * @param id

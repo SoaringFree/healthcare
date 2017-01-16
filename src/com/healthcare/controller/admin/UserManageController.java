@@ -54,9 +54,9 @@ public class UserManageController {
 	private FamilyInfoService familySrv;
 	
 	
-	@RequestMapping(value = "/userindex", method = RequestMethod.GET)
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public ModelAndView userIndex() {
-		return new ModelAndView("/usermanage/userindex");
+		return new ModelAndView("/usermanage/index");
 	}
 	
 	@RequestMapping(value = "/addfamily", method = RequestMethod.GET)
@@ -160,7 +160,7 @@ public class UserManageController {
 		if (userSrv.editUser(user)) {
 			map.put("success", true);
 		} else {
-			map.put("success", true);
+			map.put("success", false);
 		}
 		
 		return map;
@@ -175,7 +175,7 @@ public class UserManageController {
 		if (userSrv.deleteUser(id)) {
 			map.put("success", true);
 		} else {
-			map.put("success", true);
+			map.put("success", false);
 		}
 		
 		return map;
@@ -196,7 +196,7 @@ public class UserManageController {
 		if (userinfoSrv.editUserInfo(userinfo)) {
 			map.put("success", true);
 		} else {
-			map.put("success", true);
+			map.put("success", false);
 		}
 		
 		return map;

@@ -4,25 +4,57 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML>
 <html>
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'index.jsp' starting page</title>
+    <title>首页</title>
     
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-
+	<%@ include file="../shared/cssandjs.jsp" %>
   </head>
   
-  <body>
-    This is my JSP page. <br>
+  <body class="no-skin">
+    
+    <%@ include file="../shared/header.jsp" %>
+    
+    <!-- main container -->
+    <div class="main-container" id="main-container">
+    	<!-- #section:basics/side bar -->
+		<div id="sidebar" class="sidebar responsive">
+			<%@ include file="../shared/usermenu.jsp" %>
+		</div>
+		
+		<!-- /section:basics/side bar -->
+		<div class="main-content">
+			<div class="main-content-inner">
+				<!-- 页面导航 -->
+				<!-- #section:basics/content.breadcrumbs -->
+				<div class="breadcrumbs" id="breadcrumbs">
+					<ul class="breadcrumb">
+						<li>
+							<i class="ace-icon fa fa-home home-icon"></i>
+							<a href="#">首页</a>
+						</li>
+					</ul><!-- /.breadcrumb -->
+				</div>
+				
+				<!-- /section:basics/content.breadcrumbs -->
+				<div class="page-content">
+					<!-- 页面内容 -->
+				
+				</div>
+				
+				
+			</div>
+		</div><!-- /.section:basics/sidebar -->
+    </div><!-- /.main container -->
+    
+    <script type="text/javascript">
+    
+    	// TODO
+    
+    </script>
+    
   </body>
 </html>

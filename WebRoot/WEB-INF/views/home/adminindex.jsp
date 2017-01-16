@@ -34,11 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<ul class="breadcrumb">
 						<li>
 							<i class="ace-icon fa fa-home home-icon"></i>
-							<a href="#">Home</a>
-						</li>
-
-						<li class="active">
-							<a href="#"></a>
+							<a href="#">首页</a>
 						</li>
 					</ul><!-- /.breadcrumb -->
 				</div>

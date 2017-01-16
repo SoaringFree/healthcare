@@ -61,10 +61,28 @@ public class AccountController {
 		User login_user = userSrv.getUser(user);
 		if (null != login_user && 0 != login_user.getId())
 		{
+			String url = "/account/login";
+			switch (login_user.getRoleId()) {
+			case 1:
+				url = "/home/adminindex";
+				break;
+			case 2:
+				url = "/home/userindex";
+				break;
+			case 3:
+				url = "/home/doctorindex";
+				break;
+			case 4:
+				url = "/home/familyindex";
+				break;
+			default:
+				break;
+			}
+
 			model.addAttribute("UserSession", login_user);
 			map.clear();
 			map.put("success", true);
-			map.put("url", "/home/adminindex");
+			map.put("url", url);
 		} else {
 			map.put("message", "用户名或密码错误！");
 		}
