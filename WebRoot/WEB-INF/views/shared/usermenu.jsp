@@ -105,7 +105,7 @@ String baseUserMenuPath = request.getScheme()+"://"+request.getServerName()+":"+
 				<b class="arrow"></b>
 			</li>
 			<li class="">
-				<a href="<%=userMenuPath%>/doctormanage/bindingindex">
+				<a href="<%=userMenuPath%>/userinfo/mydoctor">
 					<i class="menu-icon fa fa-caret-right"></i>
 					我的医生
 				</a>

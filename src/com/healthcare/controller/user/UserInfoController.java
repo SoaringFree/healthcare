@@ -2,6 +2,7 @@ package com.healthcare.controller.user;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,8 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.healthcare.model.DoctorInfo;
 import com.healthcare.model.User;
 import com.healthcare.model.UserInfo;
+import com.healthcare.service.StoredProcedureService;
+import com.healthcare.service.UserDoctorService;
 import com.healthcare.service.UserInfoService;
 import com.healthcare.service.UserService;
 import com.healthcare.util.DateConvert;
@@ -33,11 +37,16 @@ public class UserInfoController {
 	protected final Log logger = LogFactory.getLog(getClass()); 
 	
 	@Autowired
+	private StoredProcedureService spSrv;
+	
+	@Autowired
 	private UserService userSrv;
 	
 	@Autowired
 	private UserInfoService userinfoSrv;
 	
+	@Autowired
+	private UserDoctorService userdocSrv;
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public ModelAndView index() {
@@ -120,6 +129,52 @@ public class UserInfoController {
 			map.put("success", true);
 		}
 		
+		return map;
+	}
+	
+	
+	/******************************用户医生信息********************************/
+	@RequestMapping(value = "/mydoctor", method = RequestMethod.GET)
+	public ModelAndView myDoctor() {
+		return new ModelAndView("/userinfo/mydoctor");
+	}
+	
+	@RequestMapping(value = "/getmydoctors", method = RequestMethod.GET)
+	@ResponseBody
+	public Object getMyDoctors(@ModelAttribute("UserSession") User user) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Object body = null;
+
+		if(null!=(body = spSrv.executeSP("getuserdoctor", new Object[]{ user.getUserId() }))) {
+			map.put("success", true);
+			map.put("result", body);
+		} else {
+			map.put("success", false);
+		}
+
+		return map;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/getdoctorinfo", method = RequestMethod.GET)
+	@ResponseBody
+	public Object getDoctorInfo(String doctorId, HttpServletRequest request) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Object body = null;
+		List<DoctorInfo> docInfos = null;
+		
+		if(null!=(body = spSrv.executeSP("getdoctorinfo", new Object[]{ doctorId }))) {
+			docInfos = (List<DoctorInfo>)body;
+			if (docInfos.isEmpty()) {
+				map.put("success", false);
+			} else {
+				map.put("success", true);
+				map.put("doctorinfo", docInfos);
+			}
+		} else {
+			map.put("success", false);
+		}
+			
 		return map;
 	}
 	

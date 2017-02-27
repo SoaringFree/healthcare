@@ -433,6 +433,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     	/****************************** 亲属详情 ********************************/
     	function familydetail(index) {
+    		// 移除弹出框无效数据
+    		$("#family_tby tr").remove();
 			loading("loading_family");
 			$("#selected_userindex").val(index);
     		getuserfamily(userList[index].userId);

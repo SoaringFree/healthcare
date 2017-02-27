@@ -1011,9 +1011,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	/****************************** 加载动画 ********************************/
     	function loading(flag) {
     		if (false == flag) {
-    			$("#loading").hide();
+    			$("#" + loadingId).hide();
     		} else {
-    			$("#loading").show();
+    			$("#" + loadingId).show();
     		}
 			
 		}
