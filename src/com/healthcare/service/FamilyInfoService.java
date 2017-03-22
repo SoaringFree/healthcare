@@ -3,7 +3,7 @@ package com.healthcare.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.healthcare.dao.base.FamilyInfoDao;
+import com.healthcare.dao.FamilyInfoDao;
 import com.healthcare.model.FamilyInfo;
 
 @Service

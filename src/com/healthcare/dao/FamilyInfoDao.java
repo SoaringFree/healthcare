@@ -1,4 +1,4 @@
-package com.healthcare.dao.base;
+package com.healthcare.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.healthcare.dao.base.BaseDao;
 import com.healthcare.model.FamilyInfo;
 
 @Repository
