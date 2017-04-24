@@ -8,6 +8,8 @@
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xmlns:meassaging="http://www.springframework.org/schema/meassaging"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 		http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
 	    http://www.springframework.org/schema/context 
@@ -21,10 +23,15 @@
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
         http://www.springframework.org/schema/cache
-        http://www.springframework.org/schema/cache/spring-cache-4.2.xsd" >
+        http://www.springframework.org/schema/cache/spring-cache-4.2.xsd
+        http://www.springframework.org/schema/websocket
+        http://www.springframework.org/schema/websocket/spring-websocket-4.2.xsd
+        http://www.springframework.org/schema/meassaging
+        http://www.springframework.org/schema/meassaging/spring-meassaging-4.2.xsd" >
 	
 	<!-- 加载资源文件 其中包含变量信息，必须在Spring配置文件的最前面加载，即第一个加载 -->
 	<context:property-placeholder location="WEB-INF/config/jdbc.properties" />
+	
 	
 	<!-- 扫描类包，将标注Spring注解的类自动转化Bean，同时完成Bean的注入 
 	<context:component-scan base-package="com.politicalconstruction.controller"></context:component-scan>
@@ -98,7 +105,8 @@
 	</bean>
 	
 	<!-- 访问静态资源 缓存1小时-->
-	<mvc:resources location="/assets/" mapping="/assets/**" cache-period="3600" />
+	<mvc:resources location="/assets/" mapping="/assets/**" />
+	<!-- <mvc:resources location="/assets/" mapping="/assets/**" cache-period="3600" /> -->
 	<!-- <mvc:resources mapping="/upload/**" location="/upload/" ></mvc:resources> -->
 	
 	
@@ -114,14 +122,14 @@
 	</bean> 
 
 	
-	<!-- 自定义登录拦截器 -->
+	<!-- 自定义登录拦截器
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
 			<bean class="com.healthcare.common.SystemInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
-
+	 -->
  	
 	<!-- 解析视图路径配置 -->
 	<bean id="viewResolver" 
@@ -134,6 +142,9 @@
         <property name="defaultEncoding" value="utf-8"></property>   
         <property name="maxUploadSize" value="10485760000"></property>  
         <property name="maxInMemorySize" value="40960"></property>  
-   </bean>
+   	</bean>
+   
+   
+   	
  	
 </beans>

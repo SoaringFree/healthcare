@@ -700,7 +700,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					// 解析data
 					userList = null;
 					userList = data.result;
-					loading(false);
+					loading(false, "loading");
 					// 装填表格
 	                initTable(userList, data.page);
 					
@@ -748,7 +748,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								success: function(data) {
 									userList = null;
 									userList = data.result;
-									loading(false);
+									loading(false, "loading");
 					                initTable(userList, page);
 					            }
 					        });
@@ -1009,7 +1009,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	
     	
     	/****************************** 加载动画 ********************************/
-    	function loading(flag) {
+    	function loading(flag, loadingId) {
     		if (false == flag) {
     			$("#" + loadingId).hide();
     		} else {

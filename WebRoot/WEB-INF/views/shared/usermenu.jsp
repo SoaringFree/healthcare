@@ -58,7 +58,7 @@ String baseUserMenuPath = request.getScheme()+"://"+request.getServerName()+":"+
 		<b class="arrow"></b>
 		<ul class="submenu">
 			<li class="">
-				<a href="<%=userMenuPath%>/datamanage/electrocardiogramindex">
+				<a href="<%=userMenuPath%>/test/ecg">
 					<i class="menu-icon fa fa-caret-right"></i>
 					心电数据
 				</a>
@@ -87,6 +87,35 @@ String baseUserMenuPath = request.getScheme()+"://"+request.getServerName()+":"+
 			</li>
 		</ul>
 	</li>
+	
+	
+	<li class="">
+		<a href="#" class="dropdown-toggle">
+			<i class="menu-icon fa fa-list-ul"></i>
+			<span class="menu-text">健康服务</span>
+			<b class="arrow fa fa-angle-down"></b>
+		</a>
+		
+		<b class="arrow"></b>
+		<ul class="submenu">
+			<li class="">
+				<a href="<%=userMenuPath%>/test/chat">
+					<i class="menu-icon fa fa-caret-right"></i>
+					健康咨询
+				</a>
+				<b class="arrow"></b>
+			</li>
+			<li class="">
+				<a href="<%=userMenuPath%>/test/advice">
+					<i class="menu-icon fa fa-caret-right"></i>
+					健康建议
+				</a>
+				<b class="arrow"></b>
+			</li>
+		</ul>
+	</li>
+	
+	
 	
 	<li class="">
 		<a href="#" class="dropdown-toggle">

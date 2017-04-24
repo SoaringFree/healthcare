@@ -192,7 +192,7 @@ String baseheadPath = request.getScheme()+"://"+request.getServerName()+":"+requ
 				<!-- #section:basics/navbar.user_menu -->
 				<li class="light-blue">
 					<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-						<img class="nav-user-photo" src="<%=headPath%>/assets/images/avatars/user.jpg" alt="Jason's Photo" />
+						<img class="nav-user-photo" src="<%=headPath%>/assets/images/avatars/user5.jpg" alt="Jason's Photo" />
 						<span class="user-info" id="user-info">
 							<small>欢迎您：</small>
 							<span></span>
