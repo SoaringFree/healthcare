@@ -189,6 +189,46 @@ String baseUserMenuPath = request.getScheme()+"://"+request.getServerName()+":"+
 			</li>
 		</ul>
 	</li>
+	
+	<li class="">
+		<a href="#" class="dropdown-toggle">
+			<i class="menu-icon fa fa-list-ul"></i>
+			<span class="menu-text">测试</span>
+			<b class="arrow fa fa-angle-down"></b>
+		</a>
+		
+		<b class="arrow"></b>
+		<ul class="submenu">
+			<li class="">
+				<a href="<%=userMenuPath%>/test/webindex1">
+					<i class="menu-icon fa fa-caret-right"></i>
+					测试1
+				</a>
+				<b class="arrow"></b>
+			</li>
+			<li class="">
+				<a href="<%=userMenuPath%>/test/webindex2">
+					<i class="menu-icon fa fa-caret-right"></i>
+					测试2
+				</a>
+				<b class="arrow"></b>
+			</li>
+			<li class="">
+				<a href="<%=userMenuPath%>/test/webindex3">
+					<i class="menu-icon fa fa-caret-right"></i>
+					测试3
+				</a>
+				<b class="arrow"></b>
+			</li>
+			<li class="">
+				<a href="<%=userMenuPath%>/test/webindex4">
+					<i class="menu-icon fa fa-caret-right"></i>
+					测试4
+				</a>
+				<b class="arrow"></b>
+			</li>
+		</ul>
+	</li>
 
 </ul><!-- /.nav-list -->
 

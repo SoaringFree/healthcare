@@ -107,5 +107,23 @@ public class TestController {
 	}
 	
 	
+	/*
+	 * 血压数据展示
+	 */
+	@RequestMapping(value = "/bp", method = RequestMethod.GET )
+	public ModelAndView bpindex() {
+		return new ModelAndView("/test/bp");
+	}
+	
+	
+	/*******************************************************************/
+	/**
+	 * Web IDE
+	 * 
+	 */
+	@RequestMapping(value = "/webindex1", method = RequestMethod.GET )
+	public ModelAndView webindex1() {
+		return new ModelAndView("/test/webindex1");
+	}
 	
 }

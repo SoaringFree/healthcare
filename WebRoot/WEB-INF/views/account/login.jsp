@@ -52,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<div style="padding-top:2%; margin-left:60px">
 			<h1>
 				<i class="ace-icon fa fa-leaf green"></i>
-				<span class="gold"><b>健康监测管理系统</b></span>
+				<span class="gold"><b>健康监测服务系统</b></span>
 			</h1>
 		</div>
 		<div class="space-10"></div>
