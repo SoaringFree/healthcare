@@ -3,21 +3,21 @@ package com.healthcare.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.healthcare.dao.FamilyInfoDao;
-import com.healthcare.model.FamilyInfo;
+import com.healthcare.dao.PatientFamilyDao;
+import com.healthcare.model.PatientFamily;
 
 @Service
-public class FamilyInfoService {
+public class PatientFamilyService {
 	
 	@Autowired
-	private FamilyInfoDao familyinfoDao;
+	private PatientFamilyDao familyinfoDao;
 	
 	/**
 	 * 编辑用户亲属信息
 	 * @param family
 	 * @return
 	 */
-	public Boolean addfamily(FamilyInfo family) {
+	public Boolean addfamily(PatientFamily family) {
 		
 		if (0 < familyinfoDao.save(family)) {
 			return true;

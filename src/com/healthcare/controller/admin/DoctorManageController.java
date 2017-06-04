@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.healthcare.model.DoctorInfo;
-import com.healthcare.model.UserDoctor;
+import com.healthcare.model.PatientDoctor;
 import com.healthcare.service.DoctorInfoService;
 import com.healthcare.service.StoredProcedureService;
-import com.healthcare.service.UserDoctorService;
+import com.healthcare.service.PatientDoctorService;
 import com.healthcare.service.UserService;
 
 @Controller
@@ -42,7 +42,7 @@ public class DoctorManageController {
 	private DoctorInfoService doctorinfoSrv;
 	
 	@Autowired
-	private UserDoctorService userdoctorSrv;
+	private PatientDoctorService userdoctorSrv;
 	
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -142,7 +142,7 @@ public class DoctorManageController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		Object body = null;
 
-		if(null!=(body = spSrv.executeSP("getuserdoctor", new Object[]{ userId }))) {
+		if(null!=(body = spSrv.executeSP("getpatientdoctor", new Object[]{ userId }))) {
 			map.put("success", true);
 			map.put("result", body);
 		} else {
@@ -200,9 +200,9 @@ public class DoctorManageController {
 	@ResponseBody
 	public Object assignDoctor(String userId, String doctorId, HttpServletRequest request) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		UserDoctor ud = new UserDoctor();
+		PatientDoctor ud = new PatientDoctor();
 		ud.setId(0);
-		ud.setUserId(userId);
+		ud.setPatientId(userId);
 		ud.setDoctorId(doctorId);
 		ud.setBindDate(new Date());
 		

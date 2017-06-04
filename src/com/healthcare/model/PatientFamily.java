@@ -16,7 +16,7 @@ import com.healthcare.model.base.JavaBean;
  * @date: 2017年1月9日 上午10:03:16
  *
  */
-public class FamilyInfo extends JavaBean {
+public class PatientFamily extends JavaBean {
 	
 	/**
 	 * 亲属用户名

@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>血氧数据</title>
+    <title>首页</title>
     
 	<%@ include file="../shared/cssandjs.jsp" %>
   </head>
@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="main-container" id="main-container">
     	<!-- #section:basics/side bar -->
 		<div id="sidebar" class="sidebar responsive">
-			<%@ include file="../shared/adminmenu.jsp" %>
+			<%@ include file="../shared/doctormenu.jsp" %>
 		</div>
 		
 		<!-- /section:basics/side bar -->
@@ -33,12 +33,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="breadcrumbs" id="breadcrumbs">
 					<ul class="breadcrumb">
 						<li>
-							<i class="ace-icon fa fa-list-ul"></i>
-							<a href="#">数据管理</a>
-						</li>
-
-						<li class="active">
-							<a href="#">血氧数据</a>
+							<i class="ace-icon fa fa-home home-icon"></i>
+							<a href="#">首页</a>
 						</li>
 					</ul><!-- /.breadcrumb -->
 				</div>
@@ -46,8 +42,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<!-- /section:basics/content.breadcrumbs -->
 				<div class="page-content">
 					<!-- 页面内容 -->
-				
-				</div>
+					<div class="alert alert-block alert-success">
+						<button type="button" class="close" data-dismiss="alert">
+							<i class="ace-icon fa fa-times"></i>
+						</button>
+	
+						<i class="ace-icon fa fa-check green"></i>
+	
+						Welcome to
+						<strong class="green">
+							Ace
+							<small>(v1.4)</small>
+						</strong>,
+						 <a href="https://github.com/bopoda/ace">github</a> (with minified ace js/css files).
+					</div>
+					
+					
+				</div><!-- /.  page-content -->
 				
 				
 			</div>

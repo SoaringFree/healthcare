@@ -22,7 +22,7 @@ public class BloodPressure extends JavaBean {
 	 * 用户名
 	 */
 	@JsonInclude(Include.NON_NULL)
-	private String userId;
+	private String patientId;
 
 	/**
 	 * 设备mac地址
@@ -63,12 +63,13 @@ public class BloodPressure extends JavaBean {
 	@JsonInclude(Include.NON_NULL)
 	private String userName;
 
-	public String getUserId() {
-		return userId;
+
+	public String getPatientId() {
+		return patientId;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setPatientId(String patientId) {
+		this.patientId = patientId;
 	}
 
 	public String getDeviceMac() {

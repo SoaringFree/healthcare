@@ -22,7 +22,7 @@ public class BloodOxygen extends JavaBean {
 	 * 用户名
 	 */
 	@JsonInclude(Include.NON_NULL)
-	private String userId;
+	private String patientId;
 	
 	/**
 	 * 设备mac地址
@@ -34,7 +34,7 @@ public class BloodOxygen extends JavaBean {
 	 * 血氧
 	 */
 	@JsonInclude(Include.NON_NULL)
-	private String bloodoxygen;
+	private String bloodOxygen;
 	
 	/**
 	 * 脉率
@@ -57,12 +57,13 @@ public class BloodOxygen extends JavaBean {
 	@JsonInclude(Include.NON_NULL)
 	private String userName;
 
-	public String getUserId() {
-		return userId;
+	
+	public String getPatientId() {
+		return patientId;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setPatientId(String patientId) {
+		this.patientId = patientId;
 	}
 
 	public String getDeviceMac() {
@@ -73,12 +74,12 @@ public class BloodOxygen extends JavaBean {
 		this.deviceMac = deviceMac;
 	}
 
-	public String getBloodoxygen() {
-		return bloodoxygen;
+	public String getBloodOxygen() {
+		return bloodOxygen;
 	}
 
-	public void setBloodoxygen(String bloodoxygen) {
-		this.bloodoxygen = bloodoxygen;
+	public void setBloodOxygen(String bloodoxygen) {
+		this.bloodOxygen = bloodoxygen;
 	}
 
 	public String getPulseRate() {

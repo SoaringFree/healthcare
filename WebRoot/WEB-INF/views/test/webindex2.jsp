@@ -139,6 +139,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		
 		
+		.dev-list-unstyled {
+		　　padding-left: 0;
+			margin-left:0;
+		　　list-style: none;
+			list-style-type: none;
+			font-size: 13px;
+	　　}
+		
+		.dev-code {
+			color: #008066;
+			font-weight: bold;
+		}
+		
 		.widget-box {
 		    border: 1px solid #c5d0dc;
 		    border-top: none;
@@ -483,7 +496,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                        	<a href="#" data-action="ld_off">
 			                                <i class="dev_icon">&nbsp;&nbsp;&nbsp;</i>
 			                            </a>
-			                            <a href="#" data-action="dev_icon">
+			                            <a href="#" data-action="dev_icon" onclick="showDEV()">
 			                                <i class="ace-icon fa  fa-circle"></i>
 			                                dev-machine
 			                            </a>
@@ -562,16 +575,75 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 			</div>
 			
-		</div>
-				
-				
+		</div>	
 				
 	</div><!-- page-content -->
 	</div>
 	</div><!-- /.section:basics/sidebar -->
     </div><!-- /.main container -->
 
-
+	
+	<div class="modal fade bold" style="display: none;" id="devModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-dialog" style="width:1200px;">
+	        <div class="modal-content">
+	            <div class="modal-body" style="padding-bottom:10px">
+	            	<div id="dev_modal" >
+						<ul class="nav nav-tabs" role="tablist">
+							<li> 
+                                <a href="#dev_machine_modal" data-toggle="dev_modal_tab">
+                                	<i class="glyphicon glyphicon-align-left green"></i>
+                                    <button class="close closeTab" type="button" onclick="closeTab(this);">×</button>
+                                    dev-machine
+                                </a>
+                            </li>
+						</ul>
+						<div class="tab-content" id="dev_modal_tab">
+							<div id="dev_machine_modal" role="tabpanel" class="tab-pane active">
+							<div class="row" style="width:1100px; overflow-x:auto;">
+							<div>
+								<ul class="dev-list-unstyled">				
+									<li>[<span class="dev-code">STDOUT</span>] Workspace </li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017-05-09 03:33:38,790[main]             [INFO ] [o.a.c.s.VersionLoggerListener 89]    - Server version:        Apache Tomcat/8.5.11</li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017-05-09 03:33:38,795[main]             [INFO ] [o.a.c.s.VersionLoggerListener 91]    - Server built:          Jan 10 2017 21:02:52 UTC </li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017-05-09 03:33:38,795[main]             [INFO ] [o.a.c.s.VersionLoggerListener 93]    - Server number:         8.5.11.0 </li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017-05-09 03:33:38,796[main]             [INFO ] [o.a.c.s.VersionLoggerListener 95]    - OS Name:               Linux </li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017-05-09 03:33:38,796[main]             [INFO ] [o.a.c.s.VersionLoggerListener 97]    - OS Version:            3.10.0-514.2.2.el7.x86_64 </li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017-05-09 03:33:38,797[main]             [INFO ] [o.a.c.s.VersionLoggerListener 99]    - Architecture:          amd64 </li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017-05-09 03:33:38,797[main]             [INFO ] [o.a.c.s.VersionLoggerListener 101]   - Java Home:             /usr/lib/jvm/java-8-openjdk-amd64/jre </li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017-05-09 03:33:38,797[main]             [INFO ] [o.a.c.s.VersionLoggerListener 103]   - JVM Version:           1.8.0_121-8u121-b13-0ubuntu1.16.04.2-b13 </li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017-05-09 03:33:38,798[main]             [INFO ] [o.a.c.s.VersionLoggerListener 105]   - JVM Vendor:            Oracle Corporation </li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017-05-09 03:33:38,798[main]             [INFO ] [o.a.c.s.VersionLoggerListener 107]   - CATALINA_BASE:         /home/user/ws-agent </li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017-05-09 03:33:38,799[main]             [INFO ] [o.a.c.s.VersionLoggerListener 109]   - CATALINA_HOME:         /home/user/ws-agent </li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017-05-09 03:33:38,801[main]             [INFO ] [o.a.c.s.VersionLoggerListener 115]   - Command line argument: -Xms256m </li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017-05-09 03:33:38,802[main]             [INFO ] [o.a.c.s.VersionLoggerListener 115]   - Command line argument: -Xmx2048m </li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017-05-09 03:33:38,803[main]             [INFO ] [o.a.c.s.VersionLoggerListener 115]   - Command line argument: -Djuli-logback.configurationFile=file:/home/user/ws-agent/conf/tomcat-logger.xml </li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017-05-09 03:33:38,803[main]             [INFO ] [o.a.c.s.VersionLoggerListener 115]   - Command line argument: -Djdk.tls.ephemeralDHKeySize=2048 </li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017-05-09 03:33:38,907[main]             [INFO ] [o.a.c.http11.Http11NioProtocol 525]  - Initializing ProtocolHandler ["http-nio-4401"] </li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017-05-09 03:33:38,938[main]             [INFO ] [o.a.catalina.startup.Catalina 617]   - Initialization processed in 473 ms </li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017-05-09 03:33:39,000[main]             [INFO ] [c.m.JmxRemoteLifecycleListener 336]  - The JMX Remote Listener has configured the registry on port 32002 and the server on port 32102 for the Platform server </li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017-05-09 03:33:39,001[main]             [INFO ] [o.a.c.core.StandardService 416]      - Starting service Catalina </li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017-05-09 03:33:39,001[main]             [INFO ] [o.a.c.core.StandardEngine 259]       - Starting Servlet Engine: Apache Tomcat/8.5.11 </li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017-05-09 03:33:39,155[ost-startStop-1]  [INFO ] [o.a.c.startup.HostConfig 923]        - Deploying web application archive /home/user/ws-agent/webapps/ROOT.war </li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017-05-09 03:33:47,510[ost-startStop-1]  [INFO ] [o.e.c.a.p.s.WorkspaceHolder 59]      - Workspace ID: workspace5s655qjkdz2g8gh1 </li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017-05-09 03:33:48,652[s polled Thread]  [INFO ] [o.e.c.p.m.server.rmi.RmiClient 130]  - Port/Name:15782/MavenRemoteServerImpl75c0cbd0 </li>
+									<li>[<span class="dev-code">STDOUT</span>]  </li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017-05-09 03:33:50,510[ost-startStop-1]  [INFO ] [o.a.c.startup.HostConfig 987]        - Deployment of web application archive /home/user/ws-agent/webapps/ROOT.war has finished in 11,354 ms </li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017-05-09 03:33:50,513[main]             [INFO ] [o.a.c.http11.Http11NioProtocol 570]  - Starting ProtocolHandler [http-nio-4401] </li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017-05-09 03:33:50,521[main]             [INFO ] [o.a.catalina.startup.Catalina 668]   - Server startup in 11581 ms </li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017-05-09 03:34:01,507[io-4401-exec-10]  [INFO ] [a.c.w.i.BasicWebSocketEndpoint 49]   - Web socket session opened </li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017-05-09 03:34:01,508[io-4401-exec-10]  [INFO ] [a.c.w.i.BasicWebSocketEndpoint 50]   - Endpoint: 1770967579 </li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017/05/09 03:34:02 A new channel with id 'channel-1' successfully opened </li>
+									<li>[<span class="dev-code">STDOUT</span>] 2017/05/09 03:34:03 Start new terminal. </li>
+								</ul>
+							</div>	
+							</div>
+							</div>
+						</div>
+					</div>
+	        	</div>
+	    	</div>
+	    </div>
+    </div>
    
     
     
@@ -860,6 +932,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$("#code_index").append(ul);
 		}
 	
+		function showDEV() {
+			$("#devModal").modal("show");
+		}
 	
     </script>
     

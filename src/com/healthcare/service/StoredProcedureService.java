@@ -7,11 +7,21 @@ import java.lang.reflect.Method;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.healthcare.dao.get.GetBloodGlucoseDao;
+import com.healthcare.dao.get.GetBloodOxygenDao;
+import com.healthcare.dao.get.GetBloodPressureDao;
+import com.healthcare.dao.get.GetDeviceDao;
 import com.healthcare.dao.get.GetDoctorInfoDao;
 import com.healthcare.dao.get.GetDoctorInfosDao;
+import com.healthcare.dao.get.GetDoctorPatientBpDao;
+import com.healthcare.dao.get.GetDoctorPatientDao;
+import com.healthcare.dao.get.GetDoctorPatientEcgDao;
+import com.healthcare.dao.get.GetDoctorPatientGluDao;
+import com.healthcare.dao.get.GetDoctorPatientSpo2Dao;
+import com.healthcare.dao.get.GetElectrocardiogramDao;
 import com.healthcare.dao.get.GetFamilyInfoDao;
 import com.healthcare.dao.get.GetUserDao;
-import com.healthcare.dao.get.GetUserDoctorDao;
+import com.healthcare.dao.get.GetPatientDoctorDao;
 
 @Service
 public class StoredProcedureService {
@@ -26,10 +36,45 @@ public class StoredProcedureService {
 		private GetDoctorInfosDao getdoctorinfosDao;
 		
 		@Autowired
-		private GetUserDoctorDao getuserdoctorDao;
+		private GetPatientDoctorDao getpatientdoctorDao;
 		
 		@Autowired
 		private GetFamilyInfoDao getfamilyinfoDao;
+		
+		@Autowired
+		private GetElectrocardiogramDao getelectrocardiogramDao;
+		
+		@Autowired
+		private GetBloodGlucoseDao getbloodglucoseDao;
+		
+		@Autowired
+		private GetBloodOxygenDao getbloodoxygenDao;
+		
+		@Autowired
+		private GetBloodPressureDao getbloodpressureDao;
+		
+		@Autowired
+		private GetDeviceDao getdeviceDao;
+		
+		@Autowired
+		private GetDoctorPatientDao getdoctorpatientDao;
+		
+		
+		/**************************************************************************
+		** 医生或患者，获取生理数据
+		**************************************************************************/
+		@Autowired
+		private GetDoctorPatientEcgDao getdoctorpatientecgDao;
+		@Autowired
+		private GetDoctorPatientBpDao getdoctorpatientbpDao;
+		@Autowired
+		private GetDoctorPatientGluDao getdoctorpatientgluDao;
+		@Autowired
+		private GetDoctorPatientSpo2Dao getdoctorpatientspo2Dao;
+		
+		
+		
+		
 		
 		
 		/**

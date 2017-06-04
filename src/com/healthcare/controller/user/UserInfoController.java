@@ -24,7 +24,7 @@ import com.healthcare.model.DoctorInfo;
 import com.healthcare.model.User;
 import com.healthcare.model.UserInfo;
 import com.healthcare.service.StoredProcedureService;
-import com.healthcare.service.UserDoctorService;
+import com.healthcare.service.PatientDoctorService;
 import com.healthcare.service.UserInfoService;
 import com.healthcare.service.UserService;
 import com.healthcare.util.DateConvert;
@@ -46,7 +46,7 @@ public class UserInfoController {
 	private UserInfoService userinfoSrv;
 	
 	@Autowired
-	private UserDoctorService userdocSrv;
+	private PatientDoctorService userdocSrv;
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public ModelAndView index() {

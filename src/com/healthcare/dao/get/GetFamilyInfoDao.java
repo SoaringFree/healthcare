@@ -10,19 +10,19 @@ import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 
 import com.healthcare.dao.base.BaseStoredProcedureDao;
-import com.healthcare.model.FamilyInfo;
+import com.healthcare.model.PatientFamily;
 
 @Repository
-public class GetFamilyInfoDao extends BaseStoredProcedureDao<FamilyInfo> {
+public class GetFamilyInfoDao extends BaseStoredProcedureDao<PatientFamily> {
 
 	@Override
-	protected RowMapper<FamilyInfo> buildRowMapper() {
-		return new RowMapper<FamilyInfo>() {
+	protected RowMapper<PatientFamily> buildRowMapper() {
+		return new RowMapper<PatientFamily>() {
 
 			@Override
-			public FamilyInfo mapRow(ResultSet rs, int row)
+			public PatientFamily mapRow(ResultSet rs, int row)
 					throws SQLException {
-				FamilyInfo bean = new FamilyInfo();
+				PatientFamily bean = new PatientFamily();
 				bean.setId(rs.getInt("Id"));
 				bean.setFamilyId(rs.getString("FamilyId"));
 				bean.setUserId(rs.getString("UserId"));

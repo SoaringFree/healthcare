@@ -33,7 +33,7 @@ public class AccountController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET )
 	public ModelAndView index() {
 		
-		logger.info(String.format("###---> Go into Account : %s...", "Login"));
+		// logger.info(String.format("###---> Go into Account : %s...", "Login"));
 		return new ModelAndView("/account/login");
 	}
 	
@@ -50,13 +50,15 @@ public class AccountController {
 			return map;
 		}
 		
+		/*
 		String userCaptcha = request.getParameter("userCaptcha").toString().toUpperCase();
 		String captcha = session.getAttribute("captcha").toString();
-
+		
 		if (!userCaptcha.equals(captcha)) {
 			map.put("message", "验证码错误！");
 			return map;
 		}
+		*/
 		
 		User login_user = userSrv.getUser(user);
 		if (null != login_user && 0 != login_user.getId())

@@ -7,10 +7,10 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.healthcare.dao.base.BaseDao;
-import com.healthcare.model.FamilyInfo;
+import com.healthcare.model.PatientFamily;
 
 @Repository
-public class FamilyInfoDao extends BaseDao<FamilyInfo> {
+public class PatientFamilyDao extends BaseDao<PatientFamily> {
 
 	@Override
 	protected String buildUptStatement() {
@@ -27,14 +27,14 @@ public class FamilyInfoDao extends BaseDao<FamilyInfo> {
 	}
 
 	@Override
-	protected RowMapper<FamilyInfo> buildRowMapper() {
+	protected RowMapper<PatientFamily> buildRowMapper() {
 
-		return new RowMapper<FamilyInfo>() {
+		return new RowMapper<PatientFamily>() {
 
 			@Override
-			public FamilyInfo mapRow(ResultSet rs, int row)
+			public PatientFamily mapRow(ResultSet rs, int row)
 					throws SQLException {
-				FamilyInfo bean = new FamilyInfo();
+				PatientFamily bean = new PatientFamily();
 				bean.setId(rs.getInt("Id"));
 				bean.setFamilyId(rs.getString("FamilyId"));
 				bean.setUserId(rs.getString("UserId"));

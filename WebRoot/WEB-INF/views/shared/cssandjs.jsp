@@ -8,7 +8,7 @@ String basecssPash = request.getScheme()+"://"+request.getServerName()+":"+reque
 
 <!-- The styles -->
 <!-- bootstrap & font awesome -->
-<link rel="stylesheet" href="<%=cssPash%>/assets/css/bootstrap.min.css" />
+<link rel="stylesheet" href="<%=cssPash%>/assets/css/bootstrap.css" />
 <link rel="stylesheet" href="<%=cssPash%>/assets/font-awesome/4.5.0/css/font-awesome.min.css" />
 <link rel="stylesheet" href='<%=cssPash%>/assets/css/bootstrap-datetimepicker.min.css' />
 

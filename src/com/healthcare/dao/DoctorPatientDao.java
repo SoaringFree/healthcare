@@ -7,10 +7,19 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.healthcare.dao.base.BaseDao;
-import com.healthcare.model.UserDoctor;
+import com.healthcare.model.DoctorPatient;
 
+/**
+ * 医生->患者
+ * @Title: DoctorPatientDao
+ * @Description: TODO 
+ *
+ * @author: 114-FEI
+ * @date: 2017年6月4日 上午11:31:04
+ *
+ */
 @Repository
-public class UserDoctorDao extends BaseDao<UserDoctor> {
+public class DoctorPatientDao extends BaseDao<DoctorPatient> {
 
 	@Override
 	protected String buildUptStatement() {
@@ -18,7 +27,7 @@ public class UserDoctorDao extends BaseDao<UserDoctor> {
 		sb.append(" SET ");
 		
 		sb.append("DoctorId=:doctorId,");
-		sb.append("UserId=:userId,");
+		sb.append("PatientId=:patientId,");
 		sb.append("BindDate=:bindDate ");
 		
 		sb.append(" WHERE Id=:id");
@@ -26,16 +35,16 @@ public class UserDoctorDao extends BaseDao<UserDoctor> {
 	}
 
 	@Override
-	protected RowMapper<UserDoctor> buildRowMapper() {
-		return new RowMapper<UserDoctor>() {
+	protected RowMapper<DoctorPatient> buildRowMapper() {
+		return new RowMapper<DoctorPatient>() {
 
 			@Override
-			public UserDoctor mapRow(ResultSet rs, int row)
+			public DoctorPatient mapRow(ResultSet rs, int row)
 					throws SQLException {
-				UserDoctor bean = new UserDoctor();
+				DoctorPatient bean = new DoctorPatient();
 				bean.setId(rs.getInt("Id"));
 				bean.setDoctorId(rs.getString("DoctorId"));
-				bean.setUserId(rs.getString("UserId"));
+				bean.setPatientId(rs.getString("PatientId"));
 				bean.setBindDate(rs.getDate("BindDate"));
 				return bean;
 			}

@@ -33,6 +33,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  	height:32px;
 		}
 		
+		td > .btn-xs {
+    		padding-top: 2px;
+    		padding-bottom: 2px;
+    		border-width: 2px;
+		}
+			
 	</style>
 	
   </head>

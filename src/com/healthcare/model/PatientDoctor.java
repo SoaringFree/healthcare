@@ -16,13 +16,13 @@ import com.healthcare.model.base.JavaBean;
  * @date: 2017年1月9日 上午10:00:21
  *
  */
-public class UserDoctor extends JavaBean {
+public class PatientDoctor extends JavaBean {
 	
 	/**
 	 * 患者用户名
 	 */
 	@JsonInclude(Include.NON_NULL)
-	private String userId;
+	private String patientId;
 	
 	/**
 	 * 医生用户名
@@ -63,13 +63,13 @@ public class UserDoctor extends JavaBean {
 	@JsonInclude(Include.NON_NULL)
 	private String department;
 	
-	
-	public String getUserId() {
-		return userId;
+
+	public String getPatientId() {
+		return patientId;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setPatientId(String patientId) {
+		this.patientId = patientId;
 	}
 
 	public String getDoctorId() {

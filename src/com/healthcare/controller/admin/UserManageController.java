@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.healthcare.model.FamilyInfo;
+import com.healthcare.model.PatientFamily;
 import com.healthcare.model.User;
 import com.healthcare.model.UserInfo;
-import com.healthcare.service.FamilyInfoService;
+import com.healthcare.service.PatientFamilyService;
 import com.healthcare.service.StoredProcedureService;
 import com.healthcare.service.UserInfoService;
 import com.healthcare.service.UserService;
@@ -51,7 +51,7 @@ public class UserManageController {
 	private UserInfoService userinfoSrv;
 	
 	@Autowired
-	private FamilyInfoService familySrv;
+	private PatientFamilyService familySrv;
 	
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -245,7 +245,7 @@ public class UserManageController {
 	
 	@RequestMapping(value = "/addfamily", method = RequestMethod.POST)
 	@ResponseBody
-	public Object addFamily(FamilyInfo family, HttpServletRequest request) {
+	public Object addFamily(PatientFamily family, HttpServletRequest request) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		Date dt = new Date();

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.healthcare.model.Electrocardiogram;
-import com.healthcare.model.UserInfo;
 import com.healthcare.service.StoredProcedureService;
 
 /**
@@ -124,6 +123,21 @@ public class TestController {
 	@RequestMapping(value = "/webindex1", method = RequestMethod.GET )
 	public ModelAndView webindex1() {
 		return new ModelAndView("/test/webindex1");
+	}
+	
+	@RequestMapping(value = "/webindex2", method = RequestMethod.GET )
+	public ModelAndView webindex2() {
+		return new ModelAndView("/test/webindex2");
+	}
+	
+	@RequestMapping(value = "/webindex3", method = RequestMethod.GET )
+	public ModelAndView webindex3() {
+		return new ModelAndView("/test/webindex3");
+	}
+	
+	@RequestMapping(value = "/qbhs", method = RequestMethod.GET )
+	public ModelAndView qbhs() {
+		return new ModelAndView("/test/qbhs");
 	}
 	
 }

@@ -22,7 +22,7 @@ public class Electrocardiogram extends JavaBean {
 	 * 用户名
 	 */
 	@JsonInclude(Include.NON_NULL)
-	private String userId;
+	private String patientId;
 	
 	/**
 	 * 设备mac地址
@@ -45,11 +45,6 @@ public class Electrocardiogram extends JavaBean {
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	private Date measureDate;
 	
-	/**
-	 * 数据标记
-	 */
-	@JsonInclude(Include.NON_NULL)
-	private String uUID;
 	
 	/**
 	 * 用户姓名
@@ -57,12 +52,14 @@ public class Electrocardiogram extends JavaBean {
 	@JsonInclude(Include.NON_NULL)
 	private String userName;
 
-	public String getUserId() {
-		return userId;
+
+
+	public String getPatientId() {
+		return patientId;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setPatientId(String patientId) {
+		this.patientId = patientId;
 	}
 
 	public String getDeviceMac() {
@@ -81,6 +78,7 @@ public class Electrocardiogram extends JavaBean {
 		this.heartRate = heartRate;
 	}
 
+
 	public String geteCG() {
 		return eCG;
 	}
@@ -95,14 +93,6 @@ public class Electrocardiogram extends JavaBean {
 
 	public void setMeasureDate(Date measureDate) {
 		this.measureDate = measureDate;
-	}
-
-	public String getuUID() {
-		return uUID;
-	}
-
-	public void setuUID(String uUID) {
-		this.uUID = uUID;
 	}
 
 	public String getUserName() {

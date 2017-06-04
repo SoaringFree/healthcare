@@ -47,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </style>
   </head>
   
-  <body class="login-layout">
+  <body class="login-layout" onkeydown="keyLogin();">
     <div class="main-container">
     	<div style="padding-top:2%; margin-left:60px">
 			<h1>
@@ -311,10 +311,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				errorMsgShow("请输入密码！");
 				return;
 			}
+			/*
 			if(0 >= $("#captcha").val().trim().length) {
 				errorMsgShow("请输入验证码！");
 				return;
 			}
+			*/
 		
 			$.ajax({
 				type: "POST",
@@ -357,6 +359,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			url = url + "?timestamp=" + timestamp;
 			return url;
 		};
+		
+		
+		function keyLogin()
+		{
+		  if (event.keyCode == 13)
+		  {
+		    event.returnValue = false;
+		    event.cancel = true;
+		    loginSubmit();
+		  }
+		}
+
 
 	</script>
   </body>

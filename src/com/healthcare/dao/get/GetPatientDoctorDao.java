@@ -10,18 +10,18 @@ import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 
 import com.healthcare.dao.base.BaseStoredProcedureDao;
-import com.healthcare.model.UserDoctor;
+import com.healthcare.model.PatientDoctor;
 
 @Repository
-public class GetUserDoctorDao extends BaseStoredProcedureDao<UserDoctor> {
+public class GetPatientDoctorDao extends BaseStoredProcedureDao<PatientDoctor> {
 
 	@Override
-	protected RowMapper<UserDoctor> buildRowMapper() {
-		return new RowMapper<UserDoctor>() {
-			public UserDoctor mapRow(ResultSet rs, int row) throws SQLException {
-				UserDoctor bean = new UserDoctor();
+	protected RowMapper<PatientDoctor> buildRowMapper() {
+		return new RowMapper<PatientDoctor>() {
+			public PatientDoctor mapRow(ResultSet rs, int row) throws SQLException {
+				PatientDoctor bean = new PatientDoctor();
 				bean.setId(rs.getLong("Id"));
-				bean.setUserId(rs.getString("UserId"));
+				bean.setPatientId(rs.getString("PatientId"));
 				bean.setDoctorId(rs.getString("DoctorId"));
 				bean.setBindDate(rs.getTimestamp("BindDate"));
 				bean.setProfessional(rs.getString("Professional"));
@@ -35,11 +35,11 @@ public class GetUserDoctorDao extends BaseStoredProcedureDao<UserDoctor> {
 
 	@Override
 	protected StoredProcedure buildStoredProcedure() {
-		return new UserDoctorSP();
+		return new PatientDoctorSP();
 	}
 	
-	public class UserDoctorSP extends StoredProcedure {
-		UserDoctorSP() {
+	public class PatientDoctorSP extends StoredProcedure {
+		PatientDoctorSP() {
 			super();
 			//定义参数
 			declareParameter(new SqlParameter("userId", Types.CHAR));

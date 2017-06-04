@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
-String adminMenuPath = request.getContextPath();
-String baseAdminMenuPath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+adminMenuPath+"/";
+String doctorMenuPath = request.getContextPath();
+String baseDoctorMenuPath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+doctorMenuPath+"/";
 %>
 
 <!-- #section:basics/side bar -->
@@ -41,7 +41,7 @@ String baseAdminMenuPath = request.getScheme()+"://"+request.getServerName()+":"
 <ul class="nav nav-list" id="menu">
 
 	<li class="">
-		<a href="<%=adminMenuPath%>/home/adminindex">
+		<a href="<%=doctorMenuPath%>/home/userindex">
 			<i class="menu-icon fa fa-home"></i>
 			<span class="menu-text"> 首页 </span>
 		</a>
@@ -50,88 +50,36 @@ String baseAdminMenuPath = request.getScheme()+"://"+request.getServerName()+":"
 
 	<li class="">
 		<a href="#" class="dropdown-toggle">
-			<i class="menu-icon fa fa-user"></i>
-			<span class="menu-text">用户管理</span>
-			<b class="arrow fa fa-angle-down"></b>
-		</a>
-		
-		<b class="arrow"></b>
-		<ul class="submenu">
-			<li class="">
-				<a href="<%=adminMenuPath%>/usermanage/index">
-					<i class="menu-icon fa fa-caret-right"></i>
-					用户管理
-				</a>
-				<b class="arrow"></b>
-			</li>
-			<li class="">
-				<a href="<%=adminMenuPath%>/usermanage/addfamily">
-					<i class="menu-icon fa fa-caret-right"></i>
-					添加亲属
-				</a>
-				<b class="arrow"></b>
-			</li>
-		</ul>
-	</li>
-	
-	<li class="">
-		<a href="#" class="dropdown-toggle">
-			<i class="menu-icon fa fa-user"></i>
-			<span class="menu-text">医生管理</span>
-			<b class="arrow fa fa-angle-down"></b>
-		</a>
-		
-		<b class="arrow"></b>
-		<ul class="submenu">
-			<li class="">
-				<a href="<%=adminMenuPath%>/doctormanage/index">
-					<i class="menu-icon fa fa-caret-right"></i>
-					医生信息
-				</a>
-				<b class="arrow"></b>
-			</li>
-			<li class="">
-				<a href="<%=adminMenuPath%>/doctormanage/bindingindex">
-					<i class="menu-icon fa fa-caret-right"></i>
-					指定医生
-				</a>
-				<b class="arrow"></b>
-			</li>
-		</ul>
-	</li>
-	
-	<li class="">
-		<a href="#" class="dropdown-toggle">
 			<i class="menu-icon fa fa-list-ul"></i>
-			<span class="menu-text">数据管理</span>
+			<span class="menu-text">健康数据</span>
 			<b class="arrow fa fa-angle-down"></b>
 		</a>
 		
 		<b class="arrow"></b>
 		<ul class="submenu">
 			<li class="">
-				<a href="<%=adminMenuPath%>/addatamgmt/electrocardiogram">
+				<a href="<%=doctorMenuPath%>/drdatamgmt/electrocardiogram">
 					<i class="menu-icon fa fa-caret-right"></i>
 					心电数据
 				</a>
 				<b class="arrow"></b>
 			</li>
 			<li class="">
-				<a href="<%=adminMenuPath%>/addatamgmt/bloodoxygen">
+				<a href="<%=doctorMenuPath%>/drdatamgmt/bloodoxygen">
 					<i class="menu-icon fa fa-caret-right"></i>
 					血氧数据
 				</a>
 				<b class="arrow"></b>
 			</li>
 			<li class="">
-				<a href="<%=adminMenuPath%>/addatamgmt/bloodpressure">
+				<a href="<%=doctorMenuPath%>/drdatamgmt/bloodpressure">
 					<i class="menu-icon fa fa-caret-right"></i>
 					血压数据
 				</a>
 				<b class="arrow"></b>
 			</li>
 			<li class="">
-				<a href="<%=adminMenuPath%>/addatamgmt/bloodglucose">
+				<a href="<%=doctorMenuPath%>/drdatamgmt/bloodglucose">
 					<i class="menu-icon fa fa-caret-right"></i>
 					血糖数据
 				</a>
@@ -140,30 +88,92 @@ String baseAdminMenuPath = request.getScheme()+"://"+request.getServerName()+":"
 		</ul>
 	</li>
 	
+	
 	<li class="">
-		<a href="<%=adminMenuPath%>/addevicemgmt/device">
-			<i class="menu-icon fa fa-cog"></i>
-			<span class="menu-text">设备管理 </span>
+		<a href="#" class="dropdown-toggle">
+			<i class="menu-icon fa fa-list-ul"></i>
+			<span class="menu-text">健康服务</span>
+			<b class="arrow fa fa-angle-down"></b>
 		</a>
+		
 		<b class="arrow"></b>
-	</li>
-
-	<li class="">
-		<a href="<%=adminMenuPath%>/party/template">
-			<i class="menu-icon fa fa-leaf"></i>
-			<span class="menu-text">模板页面</span>
-		</a>
-		<b class="arrow"></b>
+		<ul class="submenu">
+			<li class="">
+				<a href="<%=doctorMenuPath%>/test/chat">
+					<i class="menu-icon fa fa-caret-right"></i>
+					健康咨询
+				</a>
+				<b class="arrow"></b>
+			</li>
+			<li class="">
+				<a href="<%=doctorMenuPath%>/test/advice">
+					<i class="menu-icon fa fa-caret-right"></i>
+					健康建议
+				</a>
+				<b class="arrow"></b>
+			</li>
+		</ul>
 	</li>
 	
 	<li class="">
-		<a href="<%=adminMenuPath%>/account/login">
-			<i class="menu-icon fa fa-power-off"></i>
-			<span class="menu-text">退出登录</span>
+		<a href="#" class="dropdown-toggle">
+			<i class="menu-icon fa fa-user"></i>
+			<span class="menu-text">信息管理</span>
+			<b class="arrow fa fa-angle-down"></b>
 		</a>
+		
 		<b class="arrow"></b>
+		<ul class="submenu">
+			<li class="">
+				<a href="<%=doctorMenuPath%>/userinfo/index">
+					<i class="menu-icon fa fa-caret-right"></i>
+					个人资料
+				</a>
+				<b class="arrow"></b>
+			</li>
+			<li class="">
+				<a href="<%=doctorMenuPath%>/userinfo/mydoctor">
+					<i class="menu-icon fa fa-caret-right"></i>
+					我的客户
+				</a>
+				<b class="arrow"></b>
+			</li>
+		</ul>
 	</li>
-
+	
+	<li class="">
+		<a href="#" class="dropdown-toggle">
+			<i class="menu-icon fa fa-gear"></i>
+			<span class="menu-text">系统管理</span>
+			<b class="arrow fa fa-angle-down"></b>
+		</a>
+		
+		<b class="arrow"></b>
+		<ul class="submenu">
+			<li class="">
+				<a href="<%=doctorMenuPath%>/usermanage/userindex">
+					<i class="menu-icon fa fa-caret-right"></i>
+					修改密码
+				</a>
+				<b class="arrow"></b>
+			</li>
+			<li class="">
+				<a href="<%=doctorMenuPath%>/usermanage/addfamily">
+					<i class="menu-icon fa fa-caret-right"></i>
+					系统公告
+				</a>
+				<b class="arrow"></b>
+			</li>
+			<li class="">
+				<a href="<%=doctorMenuPath%>/account/login">
+					<i class="menu-icon fa fa-power-off"></i>
+					<span class="menu-text">退出登录</span>
+				</a>
+				<b class="arrow"></b>
+			</li>
+		</ul>
+	</li>
+	
 </ul><!-- /.nav-list -->
 
 <!-- #section:basics/sidebar.layout.minimize -->

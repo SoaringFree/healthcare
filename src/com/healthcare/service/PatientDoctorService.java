@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.healthcare.dao.UserDoctorDao;
-import com.healthcare.model.UserDoctor;
+import com.healthcare.dao.PatientDoctorDao;
+import com.healthcare.model.PatientDoctor;
 
 @Service
-public class UserDoctorService {
+public class PatientDoctorService {
 	
 	@Autowired
-	private UserDoctorDao userdoctorDao;
+	private PatientDoctorDao userdoctorDao;
 	
 	
 	/**
@@ -20,8 +20,8 @@ public class UserDoctorService {
 	 * @param userId
 	 * @return
 	 */
-	public List<UserDoctor> getUserDoctors(String userId) {
-		List<UserDoctor> result = null;	
+	public List<PatientDoctor> getUserDoctors(String userId) {
+		List<PatientDoctor> result = null;	
 		if (!"".equals(userId)) {
 			String filter = String.format(" UserId='%s' ", userId);
 			result = userdoctorDao.list(filter);
@@ -48,7 +48,7 @@ public class UserDoctorService {
 	 * @param userDoctor
 	 * @return
 	 */
-	public Boolean assignDoctor(UserDoctor userDoctor){
+	public Boolean assignDoctor(PatientDoctor userDoctor){
 		Boolean flag = false;
 		if (0 < userdoctorDao.save(userDoctor))
 			flag = true;
