@@ -23,7 +23,7 @@ public class HomeController {
 	@RequestMapping(value = "/userindex", method = RequestMethod.GET)
 	public ModelAndView userHome() {
 
-		return new ModelAndView("/home/userindex");
+		return new ModelAndView("/home/patientindex");
 	}
 	
 	@RequestMapping(value = "/doctorindex", method = RequestMethod.GET)

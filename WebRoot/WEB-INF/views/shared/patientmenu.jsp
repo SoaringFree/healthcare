@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
-String doctorMenuPath = request.getContextPath();
-String baseDoctorMenuPath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+doctorMenuPath+"/";
+String userMenuPath = request.getContextPath();
+String baseUserMenuPath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+userMenuPath+"/";
 %>
 
 <!-- #section:basics/side bar -->
@@ -41,7 +41,7 @@ String baseDoctorMenuPath = request.getScheme()+"://"+request.getServerName()+":
 <ul class="nav nav-list" id="menu">
 
 	<li class="">
-		<a href="<%=doctorMenuPath%>/home/userindex">
+		<a href="<%=userMenuPath%>/home/userindex">
 			<i class="menu-icon fa fa-home"></i>
 			<span class="menu-text"> 首页 </span>
 		</a>
@@ -51,35 +51,35 @@ String baseDoctorMenuPath = request.getScheme()+"://"+request.getServerName()+":
 	<li class="">
 		<a href="#" class="dropdown-toggle">
 			<i class="menu-icon fa fa-list-ul"></i>
-			<span class="menu-text">健康数据</span>
+			<span class="menu-text">健康信息</span>
 			<b class="arrow fa fa-angle-down"></b>
 		</a>
 		
 		<b class="arrow"></b>
 		<ul class="submenu">
 			<li class="">
-				<a href="<%=doctorMenuPath%>/drdatamgmt/electrocardiogram">
+				<a href="<%=userMenuPath%>/ptdatamgmt/electrocardiogram">
 					<i class="menu-icon fa fa-caret-right"></i>
 					心电数据
 				</a>
 				<b class="arrow"></b>
 			</li>
 			<li class="">
-				<a href="<%=doctorMenuPath%>/drdatamgmt/bloodoxygen">
+				<a href="<%=userMenuPath%>/ptdatamgmt/bloodoxygen">
 					<i class="menu-icon fa fa-caret-right"></i>
 					血氧数据
 				</a>
 				<b class="arrow"></b>
 			</li>
 			<li class="">
-				<a href="<%=doctorMenuPath%>/drdatamgmt/bloodpressure">
+				<a href="<%=userMenuPath%>/ptdatamgmt/bloodpressure">
 					<i class="menu-icon fa fa-caret-right"></i>
 					血压数据
 				</a>
 				<b class="arrow"></b>
 			</li>
 			<li class="">
-				<a href="<%=doctorMenuPath%>/drdatamgmt/bloodglucose">
+				<a href="<%=userMenuPath%>/ptdatamgmt/bloodglucose">
 					<i class="menu-icon fa fa-caret-right"></i>
 					血糖数据
 				</a>
@@ -99,14 +99,14 @@ String baseDoctorMenuPath = request.getScheme()+"://"+request.getServerName()+":
 		<b class="arrow"></b>
 		<ul class="submenu">
 			<li class="">
-				<a href="<%=doctorMenuPath%>/test/chat">
+				<a href="<%=userMenuPath%>/test/chat">
 					<i class="menu-icon fa fa-caret-right"></i>
 					健康咨询
 				</a>
 				<b class="arrow"></b>
 			</li>
 			<li class="">
-				<a href="<%=doctorMenuPath%>/test/advice">
+				<a href="<%=userMenuPath%>/test/advice">
 					<i class="menu-icon fa fa-caret-right"></i>
 					健康建议
 				</a>
@@ -114,6 +114,8 @@ String baseDoctorMenuPath = request.getScheme()+"://"+request.getServerName()+":
 			</li>
 		</ul>
 	</li>
+	
+	
 	
 	<li class="">
 		<a href="#" class="dropdown-toggle">
@@ -125,16 +127,30 @@ String baseDoctorMenuPath = request.getScheme()+"://"+request.getServerName()+":
 		<b class="arrow"></b>
 		<ul class="submenu">
 			<li class="">
-				<a href="<%=doctorMenuPath%>/drinfomgmt/index">
+				<a href="<%=userMenuPath%>/ptinfomgmt/index">
 					<i class="menu-icon fa fa-caret-right"></i>
 					个人资料
 				</a>
 				<b class="arrow"></b>
 			</li>
 			<li class="">
-				<a href="<%=doctorMenuPath%>/drinfomgmt/mypatient">
+				<a href="<%=userMenuPath%>/ptinfomgmt/mydoctor">
 					<i class="menu-icon fa fa-caret-right"></i>
-					我的客户
+					我的医生
+				</a>
+				<b class="arrow"></b>
+			</li>
+			<li class="">
+				<a href="<%=userMenuPath%>/ptinfomgmt/myfamily">
+					<i class="menu-icon fa fa-caret-right"></i>
+					我的亲属
+				</a>
+				<b class="arrow"></b>
+			</li>
+			<li class="">
+				<a href="<%=userMenuPath%>/doctormanage/bindingindex">
+					<i class="menu-icon fa fa-caret-right"></i>
+					紧急联系人
 				</a>
 				<b class="arrow"></b>
 			</li>
@@ -151,21 +167,21 @@ String baseDoctorMenuPath = request.getScheme()+"://"+request.getServerName()+":
 		<b class="arrow"></b>
 		<ul class="submenu">
 			<li class="">
-				<a href="<%=doctorMenuPath%>/usermanage/userindex">
+				<a href="<%=userMenuPath%>/usermanage/userindex">
 					<i class="menu-icon fa fa-caret-right"></i>
 					修改密码
 				</a>
 				<b class="arrow"></b>
 			</li>
 			<li class="">
-				<a href="<%=doctorMenuPath%>/usermanage/addfamily">
+				<a href="<%=userMenuPath%>/usermanage/addfamily">
 					<i class="menu-icon fa fa-caret-right"></i>
 					系统公告
 				</a>
 				<b class="arrow"></b>
 			</li>
 			<li class="">
-				<a href="<%=doctorMenuPath%>/account/login">
+				<a href="<%=userMenuPath%>/account/login">
 					<i class="menu-icon fa fa-power-off"></i>
 					<span class="menu-text">退出登录</span>
 				</a>
@@ -174,6 +190,46 @@ String baseDoctorMenuPath = request.getScheme()+"://"+request.getServerName()+":
 		</ul>
 	</li>
 	
+	<li class="">
+		<a href="#" class="dropdown-toggle">
+			<i class="menu-icon fa fa-list-ul"></i>
+			<span class="menu-text">测试</span>
+			<b class="arrow fa fa-angle-down"></b>
+		</a>
+		
+		<b class="arrow"></b>
+		<ul class="submenu">
+			<li class="">
+				<a href="<%=userMenuPath%>/test/webindex1">
+					<i class="menu-icon fa fa-caret-right"></i>
+					测试1
+				</a>
+				<b class="arrow"></b>
+			</li>
+			<li class="">
+				<a href="<%=userMenuPath%>/test/webindex2">
+					<i class="menu-icon fa fa-caret-right"></i>
+					测试2
+				</a>
+				<b class="arrow"></b>
+			</li>
+			<li class="">
+				<a href="<%=userMenuPath%>/test/webindex3">
+					<i class="menu-icon fa fa-caret-right"></i>
+					测试3
+				</a>
+				<b class="arrow"></b>
+			</li>
+			<li class="">
+				<a href="<%=userMenuPath%>/test/webindex4">
+					<i class="menu-icon fa fa-caret-right"></i>
+					测试4
+				</a>
+				<b class="arrow"></b>
+			</li>
+		</ul>
+	</li>
+
 </ul><!-- /.nav-list -->
 
 <!-- #section:basics/sidebar.layout.minimize -->

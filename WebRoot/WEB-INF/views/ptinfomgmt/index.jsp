@@ -25,7 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="main-container" id="main-container">
     	<!-- #section:basics/side bar -->
 		<div id="sidebar" class="sidebar responsive">
-			<%@ include file="../shared/usermenu.jsp" %>
+			<%@ include file="../shared/patientmenu.jsp" %>
 		</div>
 		
 		<!-- /section:basics/side bar -->
@@ -225,9 +225,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							            </div>
 					            	</form>
 									<div style="text-align:right; padding:0 10px 5px 0">
-			                          	<button type="button" class="btn btn-sm btn-success" id="userinfo_enable_edit" onclick="userinfo_enable_edit()">编辑</button>
-			                          	<button type="button" class="btn btn-sm btn-primary" id="userinfo_edit_btn" onclick="userinfoEditSubmit()">保存</button>
-			                          	<button type="button" class="btn btn-sm btn-default" id="userinfo_cancel" onclick="userinfoCancel()" >取消</button>
+			                          	<button type="button" class="btn btn-sm btn-success" id="userinfo_enable_edit" onclick="patientInfo_enable_edit()">编辑</button>
+			                          	<button type="button" class="btn btn-sm btn-primary" id="userinfo_edit_btn" onclick="patientInfoEditSubmit()">保存</button>
+			                          	<button type="button" class="btn btn-sm btn-default" id="userinfo_cancel" onclick="patientInfoCancel()" >取消</button>
 			                      	</div>
 								</div>
 							
@@ -246,24 +246,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript">
     
     	$(document).ready(function() {
-			getUserAcount();
-			getUserInfo();
+			getPatientAcount();
+			getPatientInfo();
 			initValidate();
 		});
 		
 		
 		/****************************** 用户信息 ********************************/
 		var USER = null;
-		function getUserAcount() {
+		function getPatientAcount() {
 			$.ajax({
-				url: "<%=path%>/userinfo/getuseraccount",
+				url: "<%=path%>/ptinfomgmt/getpatientaccount",
 				type: "GET",
 				datatype: "json",
 				data: {},
 				success: function(data) {
 					if (data.success == true) {
 						USER = data.result;
-						initUserAccount(data.result);
+						initPatientAccount(data.result);
 					} else {
 						window.location.href = "<%=path %>/account/login";
 					}
@@ -271,7 +271,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}); 
 		}
 		
-		function initUserAccount(user) {
+		function initPatientAccount(user) {
 			$('#user_id').val(user.id);
 			$('#user_userid').val(user.userId);
 			$('#user_roleid').val(user.roleId);
@@ -311,11 +311,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		function userEditSubmit() {
 			$.ajax({
 				type: "POST",
-				url: "<%=path%>/userinfo/edituser",
+				url: "<%=path%>/ptinfomgmt/editpatient",
 				data: $("#userform").serialize(),
 				success: function(data) {
 					if (data.success == true) {
-						getUserAcount();
+						getPatientAcount();
 						userCancel();
 					} else {
 						alert("修改失败，请重试.");
@@ -328,25 +328,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		/****************************** 详细信息 ********************************/
 		var USERINFO = null;
-		function getUserInfo() {
+		function getPatientInfo() {
 			$.ajax({
-				url: "<%=path%>/userinfo/getuserinfo",
+				url: "<%=path%>/ptinfomgmt/getpatientinfo",
 				type: "GET",
 				datatype: "json",
 				data: {},
 				success: function(data) {
 					if (data.success == true) {
 						USERINFO = data.result;
-						initUserInfo(data.result, true);
+						initPatientInfo(data.result, true);
 					} else {
-						initUserInfo(null, false);
+						initPatientInfo(null, false);
 					}
-					userinfoControl();
+					patientInfoControl();
 				}
 			}); 
 		}
 		
-		function userinfoControl(fixed) {	
+		function patientInfoControl(fixed) {	
 			if (fixed == false) {	
 		   		$("#userinfo_enable_edit").hide();
 	    		$("#userinfo_edit_btn").show();
@@ -371,7 +371,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		
 		
-		function initUserInfo(userinfo, notnull) {
+		function initPatientInfo(userinfo, notnull) {
 	   		$('#userinfo_userid').val(USER.userId);
     		if (notnull == true) {
     			$('#userinfo_id').val(userinfo.id);
@@ -402,29 +402,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		}
 		}
 		
-		function userinfo_enable_edit() {
-			userinfoControl(false);
+		function patientInfo_enable_edit() {
+			patientInfoControl(false);
 		}
 		
-		function userinfoCancel() {
-			userinfoControl(); 
+		function patientInfoCancel() {
+			patientInfoControl(); 
 			$("#userinfoform").data('bootstrapValidator').resetForm(true);
 			if (USERINFO == null) {
-				initUserInfo(null, false);
+				initPatientInfo(null, false);
 			} else {
-				initUserInfo(USERINFO, true);
+				initPatientInfo(USERINFO, true);
 			}
 		}
 
-		function userinfoEditSubmit() {
+		function patientInfoEditSubmit() {
 			$.ajax({
 				type: "POST",
-				url: "<%=path%>/userinfo/edituserinfo",
+				url: "<%=path%>/ptinfomgmt/editpatientinfo",
 				data: $("#userinfoform").serialize(),
 				success: function(data) {
 					if (data.success == true) {
-						userinfoCancel();
-						getUserInfo();
+						patientInfoCancel();
+						getPatientInfo();
 					} else {
 						alert("修改失败，请重试.");
 					}

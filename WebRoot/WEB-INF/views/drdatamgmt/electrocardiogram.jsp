@@ -438,7 +438,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			$.ajax({
 				type: "GET",
-				url: "<%=path%>/addatamgmt/getecgbyid",
+				url: "<%=path%>/drdatamgmt/getecgbyid",
 				data: {id: id},
 				success: function(data) {
 					if (data.success == true) {

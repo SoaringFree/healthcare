@@ -13,7 +13,7 @@ import com.healthcare.dao.base.BaseStoredProcedureDao;
 import com.healthcare.model.PatientFamily;
 
 @Repository
-public class GetFamilyInfoDao extends BaseStoredProcedureDao<PatientFamily> {
+public class GetPatientFamilyDao extends BaseStoredProcedureDao<PatientFamily> {
 
 	@Override
 	protected RowMapper<PatientFamily> buildRowMapper() {
@@ -25,7 +25,7 @@ public class GetFamilyInfoDao extends BaseStoredProcedureDao<PatientFamily> {
 				PatientFamily bean = new PatientFamily();
 				bean.setId(rs.getInt("Id"));
 				bean.setFamilyId(rs.getString("FamilyId"));
-				bean.setUserId(rs.getString("UserId"));
+				bean.setPatientId(rs.getString("PatientId"));
 				bean.setRelationship(rs.getString("Relationship"));
 				bean.setBindDate(rs.getTimestamp("BindDate"));
 				bean.setFamilyName(rs.getString("UserName"));
@@ -36,16 +36,16 @@ public class GetFamilyInfoDao extends BaseStoredProcedureDao<PatientFamily> {
 
 	@Override
 	protected StoredProcedure buildStoredProcedure() {
-		return new FamilyInfoSP();
+		return new PatientFamilySP();
 	}
 
-	public class FamilyInfoSP extends StoredProcedure {
-		FamilyInfoSP() {
+	public class PatientFamilySP extends StoredProcedure {
+		PatientFamilySP() {
 			super();
-			//定义参数 -- 单个用户亲属信息不超过10条，因此不需分页操作
+			//定义参数 -- 单个用户亲属信息一般不超过10条，因此不需分页操作
 			//declareParameter(new SqlParameter("pageNums", Types.INTEGER));
 			//declareParameter(new SqlParameter("pageRows", Types.INTEGER));
-			declareParameter(new SqlParameter("userId", Types.CHAR));
+			declareParameter(new SqlParameter("patientId", Types.CHAR));
 		}
 	}
 }

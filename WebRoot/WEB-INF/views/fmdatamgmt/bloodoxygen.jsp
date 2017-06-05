@@ -56,7 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="main-container" id="main-container">
     	<!-- #section:basics/side bar -->
 		<div id="sidebar" class="sidebar responsive">
-			<%@ include file="../shared/doctormenu.jsp" %>
+			<%@ include file="../shared/familymenu.jsp" %>
 		</div>
 		
 		<!-- /section:basics/side bar -->
@@ -102,7 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<input style="height:32px" id="startTime" name="startTime" class="datepicker"  type="text" placeholder="起始日期" />
         						<input style="height:32px" id="endTime" name="endTime" class="datepicker" type="text" placeholder="结束日期" />
 						        <select style="height:32px;" id="myPatient" name="myPatient">
-								  <option value="0">患者选择</option>
+								  <option value="0">患者亲属</option>
 								</select>
 						        <button style="height:32px" class="btn btn-primary btn-xs"  type="button" onclick="getMyPatientSpo2List()">
 						        	<i class="glyphicon glyphicon-search white"></i>查询
@@ -173,7 +173,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		function getMyPatient() {
 			$.ajax({
 				type: "GET",
-				url: "<%=path%>/drdatamgmt/getmypatient",
+				url: "<%=path%>/fmdatamgmt/getmypatient",
 				data: {},
 				success: function(data) {
 					if (data.success == true) {
@@ -197,7 +197,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		/****************************** 患者血氧信息 ********************************/
 	
 		function getMyPatientSpo2List() {
-			var url= "<%=basePath%>/drdatamgmt/getmypatientspo2data";
+			var url= "<%=basePath%>/fmdatamgmt/getmypatientspo2data";
 			loading("loading_spo2list");
 
 			$.ajax({

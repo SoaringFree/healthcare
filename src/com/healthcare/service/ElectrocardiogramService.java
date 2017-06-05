@@ -87,4 +87,23 @@ public class ElectrocardiogramService {
 		return count;
 	}	
 	
+	/**
+	 * 亲属获取生理数据时，分页查询统计
+	 */
+	public int countFamilyPatientEcg(String familyId, String patientId, String startTime, String endTime) {
+		int count = 0;
+		String filter = "";
+		
+		if (!"".equals(patientId)) {
+			filter = " PatientId = '" + patientId + "' AND ";
+		} else {
+			filter = " PatientId IN (SELECT PatientId FROM ipv6_patient_family WHERE FamilyId = '" + familyId + "') AND ";
+		}
+		
+		filter += " MeasureDate >= '" +startTime + "' AND MeasureDate <= '" +  endTime + "' ";
+		count = ecgDao.count(filter);
+		
+		return count;
+	}	
+	
 }

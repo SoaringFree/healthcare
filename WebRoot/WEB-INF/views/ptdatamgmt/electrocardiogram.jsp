@@ -9,11 +9,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>心电记录</title>
+    <title>心电数据</title>
     
 	<%@ include file="../shared/cssandjs.jsp" %>
 	
-	<!-- bootstrap-paginator plugin -->
 	<script src="<%=path%>/assets/components/bootstrap-paginator/bootstrap-paginator.js"></script>	
 	<script src="<%=path%>/assets/highcharts/highstock.js"></script>
 	<script src="<%=path%>/assets/highcharts/grid-light.js"></script>
@@ -28,6 +27,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  	border-radius: 0px;
 		  	height:32px;
 		}
+		
+		#ecglist_tby > tr > td {
+			text-align: center; 
+			vertical-align: middle;
+		}
+		
+		td {
+			cursor: default;
+		}
+		
+		td > .btn-xs {
+    		padding-top: 2px;
+    		padding-bottom: 2px;
+    		border-width: 2px;
+		}
+		
 		
 	</style>
 	
@@ -53,10 +68,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<ul class="breadcrumb">
 						<li>
 							<i class="ace-icon fa fa-user"></i>
-							<a href="#">健康信息</a>
+							<a href="#">健康数据</a>
 						</li>
 						<li>
-							<a href="#">心电记录</a>
+							<a href="#">心电数据</a>
 						</li>
 					</ul><!-- /.breadcrumb -->
 				</div>
@@ -64,12 +79,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<!-- /section:basics/content.breadcrumbs -->
 				<div class="page-content">
 
-					<!-- 医生内容 -->
 					<div class="widget-container">
 					<div class="widget-box">
 					<div class="box-inner">
 						<div class="widget-header">
-							<h5 class="widget-title" ><b>我的心电记录</b></h5>
+							<h5 class="widget-title" ><b>心电数据</b></h5>
 		                    <div class="widget-toolbar">
 								<a href="#" data-action="fullscreen" class="orange2">
 		                            <i class="ace-icon fa fa-expand"></i>
@@ -81,12 +95,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 						
 						<div class="widget-body">
+						
+							<br />
+							<!--  multi-condition query -->
+							<div class="input-append center">
+					            <input style="height:32px" id="startTime" name="startTime" class="datepicker"  type="text" placeholder="起始日期" />
+        						<input style="height:32px" id="endTime" name="endTime" class="datepicker" type="text" placeholder="结束日期" />
+						        <button style="height:32px" class="btn btn-primary btn-xs"  type="button" onclick="getMyEcgList()">
+						        	<i class="glyphicon glyphicon-search white"></i>查询
+						        </button>
+						    </div>
+						    <br />
+						
 							<table class="table table-striped table-bordered responsive">
 								<thead>
 									<tr>
 										<th style="text-align:center;">序号</th>
 										<th style="text-align:center; display:none">ID</th>
-										<th style="text-align:center;">心率</th>
+										<th style="text-align:center;">心率（次/分）</th>
 										<th style="text-align:center;">时间</th>
 										<th style="text-align:center;">状态</th>
 										<th style="text-align:center;">心电图</th>
@@ -94,125 +120,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</thead>
 								<tbody id="ecglist_tby">
 									<tr>
-										<td style="text-align:center; vertical-align:middle;">1</td>
-										<td style="text-align:center; display:none;">1</td>
-										<td style="text-align:center; vertical-align:middle;">75</td>
-										<td style="text-align:center; vertical-align:middle;">2017-03-13 12:45:30</td>
-										<td style="text-align:center; vertical-align:middle;">Normal</td>
-										<td style="text-align:center;">
-											<a class="btn btn-success btn-xs"  onclick=" detail_ecg(1, '2017-03-13 12:45:30') ">
-	                							<i class="glyphicon glyphicon-zoom-in icon-white" ></i> 
-	                							详情
-	            							</a>
-										</td>
 									</tr>
-									
-									<tr>
-										<td style="text-align:center; vertical-align:middle;">2</td>
-										<td style="text-align:center; display:none;">1</td>
-										<td style="text-align:center; vertical-align:middle;">78</td>
-										<td style="text-align:center; vertical-align:middle;">2017-03-13 12:44:42</td>
-										<td style="text-align:center; vertical-align:middle;">Normal</td>
-										<td style="text-align:center;">
-											<a class="btn btn-success btn-xs"  onclick=" detail_ecg(1, '2017-03-13 12:44:42') ">
-	                							<i class="glyphicon glyphicon-zoom-in icon-white" ></i> 
-	                							详情
-	            							</a>
-										</td>
-									</tr>
-									
-									<tr>
-										<td style="text-align:center; vertical-align:middle;">3</td>
-										<td style="text-align:center; display:none;">1</td>
-										<td style="text-align:center; vertical-align:middle;">67</td>
-										<td style="text-align:center; vertical-align:middle;">2017-03-11 22:32:15</td>
-										<td style="text-align:center; vertical-align:middle;">Normal</td>
-										<td style="text-align:center;">
-											<a class="btn btn-success btn-xs"  onclick=" detail_ecg(1, '2017-03-11 22:32:15') ">
-	                							<i class="glyphicon glyphicon-zoom-in icon-white" ></i> 
-	                							详情
-	            							</a>
-										</td>
-									</tr>
-									
-									<tr>
-										<td style="text-align:center; vertical-align:middle;">4</td>
-										<td style="text-align:center; display:none;">1</td>
-										<td style="text-align:center; vertical-align:middle;">73</td>
-										<td style="text-align:center; vertical-align:middle;">2017-03-11 22:30:28</td>
-										<td style="text-align:center; vertical-align:middle;">Normal</td>
-										<td style="text-align:center;">
-											<a class="btn btn-success btn-xs"  onclick=" detail_ecg(1, '2017-03-11 22:30:28') ">
-	                							<i class="glyphicon glyphicon-zoom-in icon-white" ></i> 
-	                							详情
-	            							</a>
-										</td>
-									</tr>
-									
-									<tr>
-										<td style="text-align:center; vertical-align:middle;">5</td>
-										<td style="text-align:center; display:none;">1</td>
-										<td style="text-align:center; vertical-align:middle;">81</td>
-										<td style="text-align:center; vertical-align:middle;">2017-03-10 16:12:56</td>
-										<td style="text-align:center; vertical-align:middle;">Normal</td>
-										<td style="text-align:center;">
-											<a class="btn btn-success btn-xs"  onclick=" detail_ecg(1, '2017-03-06 09:10:11') ">
-	                							<i class="glyphicon glyphicon-zoom-in icon-white" ></i> 
-	                							详情
-	            							</a>
-										</td>
-									</tr>
-									
-									<tr>
-										<td style="text-align:center; vertical-align:middle;">6</td>
-										<td style="text-align:center; display:none;">1</td>
-										<td style="text-align:center; vertical-align:middle;">78</td>
-										<td style="text-align:center; vertical-align:middle;">2017-03-06 09:10:11</td>
-										<td style="text-align:center; vertical-align:middle;">Normal</td>
-										<td style="text-align:center;">
-											<a class="btn btn-success btn-xs"  onclick=" detail_ecg(1, '2017-03-06 09:10:11') ">
-	                							<i class="glyphicon glyphicon-zoom-in icon-white" ></i> 
-	                							详情
-	            							</a>
-										</td>
-									</tr>
-									
-									<tr>
-										<td style="text-align:center; vertical-align:middle;">7</td>
-										<td style="text-align:center; display:none;">1</td>
-										<td style="text-align:center; vertical-align:middle;">69</td>
-										<td style="text-align:center; vertical-align:middle;">2017-03-05 10:44:18</td>
-										<td style="text-align:center; vertical-align:middle;">Normal</td>
-										<td style="text-align:center;">
-											<a class="btn btn-success btn-xs"  onclick=" detail_ecg(1, '2017-03-05 10:44:18') ">
-	                							<i class="glyphicon glyphicon-zoom-in icon-white" ></i> 
-	                							详情
-	            							</a>
-										</td>
-									</tr>
-									
-									<tr>
-										<td style="text-align:center; vertical-align:middle;">8</td>
-										<td style="text-align:center; display:none;">1</td>
-										<td style="text-align:center; vertical-align:middle;">72</td>
-										<td style="text-align:center; vertical-align:middle;">2017-03-05 08:12:46</td>
-										<td style="text-align:center; vertical-align:middle;">Normal</td>
-										<td style="text-align:center;">
-											<a class="btn btn-success btn-xs"  onclick=" detail_ecg(1, '2017-03-05 08:12:46') ">
-	                							<i class="glyphicon glyphicon-zoom-in icon-white" ></i> 
-	                							详情
-	            							</a>
-										</td>
-									</tr>
-									
 								</tbody>
 							</table>
+							
 							<div id="loading_ecglist" style="display:none;" class="center">
 								<span>
 								<img src="<%=path %>/assets/img/ajax-loaders/ajax-loader-10.gif" title="img/ajax-loaders/ajax-loader-10.gif">
 								&nbsp;正在加载...
 								</span>
 							</div>
+							<div style="text-align:center;">
+								<ul id="paginator"></ul>
+							</div>
+							
 						</div>
 					
 					</div>	
@@ -245,23 +166,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            	</div>
 
 	        	</div>
-				
-				<!-- 
-	    		<div class="modal-footer">
-	                <div class="col-lg-4 col-lg-offset-7">
-                      	<div class="col-lg-4">
-                          	<button type="button" class="btn btn-sm btn-default" data-dismiss="modal" >关闭</button>
-                      	</div>
-                   	</div>
-	            </div>
-				-->
-				 
 	    	</div>
 	    </div>
     </div>
+    
 
-
-   
     <script type="text/javascript">
 
 		var ecgList = null;
@@ -269,10 +178,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		$(document).ready(function() {
 			initChart();
-			//getecgList();
+			getMyEcgList();
+			
+		    $('.datepicker').datetimepicker({
+		        language: 'zh-CN',//显示中文
+				format: 'yyyy-mm-dd',//显示格式
+				minView: "month",//设置只显示到月份
+				initialDate: new Date(),//初始化当前日期
+				autoclose: true,//选中自动关闭
+				todayBtn: true//显示今日按钮
+		    });
+ 
 		});
-	
-	
+
+
 		function initChart() {
 			
 			Highcharts.setOptions({
@@ -361,21 +280,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		/****************************** 患者心电信息 ********************************/
 	
-		function getecgList() {
-			var url= "<%=basePath%>/usermanage/getuser";
+		function getMyEcgList() {
+			var url= "<%=basePath%>/ptdatamgmt/getmyecgdata";
 			loading("loading_ecglist");
-			
+						
 			$.ajax({
 				url: url,
 				datatype: "json",
 				type: "GET",
-				data: {page: 1, rows: 10},
+				data: {
+					page: 1, 
+					rows: 10, 
+					startTime: $("#startTime").val(), 
+					endTime: $("#endTime").val()
+				},
 				success: function(data) {
+					loading("loading_ecglist", false);
 					
 					ecgList = null;
 					ecgList = data.result;
-					loading(false, "loading_ecglist");
-
 	                initECGList(ecgList, data.page);
 					
 					var currentPage = data.page;
@@ -383,9 +306,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					var numberofPages = totalPages > 10 ? 10 : totalPages;
 					var options = {
 						bootstrapMajorVersion: 3,
-	                    currentPage: currentPage,       // 当前页
-	                    totalPages: totalPages,      	// 总页数
-	                    numberofPages: numberofPages,   // 显示的页数
+	                    currentPage: currentPage,  
+	                    totalPages: totalPages,  
+	                    numberofPages: numberofPages, 
 	                    itemTexts: function (type, page, current) {
 	                        switch (type) {
 	                            case "first":
@@ -412,25 +335,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								url: url,
 								datatype: "json",
 								type: "GET",
-								data: {page: page, rows: 10},
+								data: {
+									page: page, 
+									rows: 10, 
+									startTime: $("#startTime").val(), 
+									endTime: $("#endTime").val()
+								},
 								success: function(data) {
 									ecgList = null;
 									ecgList = data.result;
-									loading(false, "loading_ecglist");
+									loading("loading_ecglist", false);
 					                initECGList(ecgList, data.page);
 					            }
 					        });
 					     }  
 					
 					};
-					
 					$("#paginator").bootstrapPaginator(options);
 				}
 			});
-		
 		};
-		
-		
 		
 		
 		/* 装填心电记录信息 */
@@ -438,28 +362,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		function initECGList(ecgList, page) {
 			$("#ecglist_tby tr").remove();
 			if (null != ecgList) {
-			
 				$.each(ecgList, function(index, item) {
-					
+					var heartRate = parseInt(item.heartRate, 16);
+				
 					var tr = $("<tr></tr>");
-					var td0 = $('<td style="text-align:center; vertical-align:middle;">' + ((page-1)*10	+ index + 1) + '</td>');
-					var td1 = $('<td style="text-align:center; display:none;">' 		 + item.id 				+ '</td>');
-					var td2 = $('<td style="text-align:center; vertical-align:middle;">' + item.heartRate       + '</td>');
-					var td3 = $('<td style="text-align:center; vertical-align:middle;">' + item.measureDate    	+ '</td>');
-					var td4 = $('<td style="text-align:center; vertical-align:middle;">' + item.state	      	+ '</td>');
-					var td5 = $('<td style="text-align:center;">' +
-	            					'<a class="btn btn-success btn-xs"  onclick=" detail_ecg(' + item.id + ') ">'  +
+					var td1 = $('<td>' + ((page-1)*10 + index + 1) + '</td>');
+					var td2 = $('<td style="display:none;">'+ item.id + '</td>');
+					var td5 = $('<td>' + 	heartRate		+ '</td>');
+					var td6 = $('<td>' + item.measureDate	+ '</td>');
+					
+					var td7;
+					if (heartRate >= 60 && heartRate <= 100) {
+						td7 = $('<td><span class="label label-success arrowed arrowed-in-right">正常</span></td>');
+					} else if (heartRate < 60) {
+						td7 = $('<td><span class="label label-primary arrowed arrowed-in-right">偏低</span></td>');
+					} else {
+						td7 = $('<td><span class="label label-warning arrowed arrowed-in-right">偏高</span></td>');
+					}
+					var td8 = $('<td>' +
+	            					'<a class="btn btn-success btn-xs"  onclick=" detail_ecg(' + item.id + ', ' + index + ') ">'  +
 	                					'<i class="glyphicon glyphicon-zoom-in icon-white" ></i>' +
 	                						'详情' +
 	            					'</a>' +
 	        					'</td>'
 	        					);
 	
-					tr.append(td0).append(td1).append(td2)
-						.append(td3).append(td4).append(td5);
-					
+					tr.append(td1).append(td2).append(td5).append(td6).append(td7).append(td8);
 					$("#ecglist_tby").append(tr);
-					
 				});
 			}
 		}
@@ -467,21 +396,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		/****************************** 心电图 ********************************/
 		var ecg = null;
-		function detail_ecg(id, date) {
+		function detail_ecg(id, index) {
 			ecg = null;
 			$('#detailModal').modal('show');
-			setTitle(date);
-			
-			draw_ecg();
-			return;
+			setTitle(index);
 			
 			$.ajax({
 				type: "GET",
-				url: "<%=path%>/test/getuserecg",
-				data: {},
+				url: "<%=path%>/ptdatamgmt/getecgbyid",
+				data: {id: id},
 				success: function(data) {
 					if (data.success == true) {
-						ecg = data.result;
+						chart.series[0].setData(data.ecgArr);
 					} else {
 						alert("信息加载失败，请重试.");
 					}
@@ -489,27 +415,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			});
 		}
 		
-		function setTitle(date) {
+		function setTitle(index) {
+			var data = ecgList[index];
 			$("#ecg_title b").remove();
-			var t = $("<b>" + date + " 的心电图</b>");
+			var t = $("<b>" + "[" + data.measureDate + "] 的心电图</b>");
 			$("#ecg_title").append(t);
 		}
-		
-		function draw_ecg() {
-			var data = [];
-	        ecg_data = [145, 137, 128, 135, 150, 160, 160, 155, 144, 133, 126, 117, 107, 105, 102, 100, 99, 95, 96, 101, 102, 105, 112, 112, 114, 115, 109, 110, 118, 118, 112, 111, 124, 128, 128, 124, 119, 119, 119, 117, 112, 94, 85, 108, 128, 126, 124, 129, 138, 140, 141, 143, 140, 137, 134, 131, 128, 120, 122, 121, 113, 114, 117, 121, 121, 120, 125, 126, 114, 116, 121, 137, 159, 162, 156, 166, 187, 212, 228, 223, 208, 198, 196, 190, 175, 164, 157, 146, 141, 145, 149, 148, 144, 139, 139, 137, 128, 131, 143, 122,87, 61, 40, 15, 11, 16, 24, 26, 28, 29, 29, 29, 29, 30, 30, 31, 32, 32, 33, 33, 51, 92, 127, 128, 128, 136, 131, 128, 128, 120, 98, 81, 80, 92, 99, 100, 103, 109, 124, 124, 124, 165, 198, 190, 190, 184, 182, 182, 174, 159, 145, 144, 175, 215, 240, 245, 240, 235, 229, 222, 221, 218, 211, 205, 203, 202, 190, 178, 156, 116, 126, 174, 199, 187, 179, 175, 163, 131, 128, 123, 118, 122, 127, 108, 94, 86, 73, 78, 83, 84, 91, 100, 109, 117, 128, 147, 161, 168, 170, 169];
 
-	        if (null != ecg_data) {
-	        	for(var i = 0; i < 15; i++) {
-		        	$.each(ecg_data, function(index, item) {
-		        		data.push(item - 128);
-		        	});	
-	        	}
-	        	chart.series[0].setData(data);
-	        }
-	    };
-		
-		
 
     	/****************************** 加载动画 ********************************/
     	function loading(loadingId, flag) {

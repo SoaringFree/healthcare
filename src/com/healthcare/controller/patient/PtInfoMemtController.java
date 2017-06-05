@@ -1,4 +1,4 @@
-package com.healthcare.controller.user;
+package com.healthcare.controller.patient;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -23,17 +23,26 @@ import org.springframework.web.servlet.ModelAndView;
 import com.healthcare.model.DoctorInfo;
 import com.healthcare.model.User;
 import com.healthcare.model.UserInfo;
-import com.healthcare.service.StoredProcedureService;
 import com.healthcare.service.PatientDoctorService;
+import com.healthcare.service.StoredProcedureService;
 import com.healthcare.service.UserInfoService;
 import com.healthcare.service.UserService;
 import com.healthcare.util.DateConvert;
 
+/**
+ * 患者信息管理
+ * @Title: PtInfoMemtController
+ * @Description: TODO 
+ *
+ * @author: 114-FEI
+ * @date: 2017年6月5日 上午10:15:06
+ *
+ */
 @Controller
-@RequestMapping("/userinfo")
+@RequestMapping("/ptinfomgmt")
 @SessionAttributes("UserSession")
-public class UserInfoController {
-
+public class PtInfoMemtController {
+	
 	protected final Log logger = LogFactory.getLog(getClass()); 
 	
 	@Autowired
@@ -48,14 +57,18 @@ public class UserInfoController {
 	@Autowired
 	private PatientDoctorService userdocSrv;
 	
+	
+	/**************************************************************************
+	** 患者个人信息
+	**************************************************************************/
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public ModelAndView index() {
-		return new ModelAndView("/userinfo/index");
+		return new ModelAndView("/ptinfomgmt/index");
 	}
 	
-	@RequestMapping(value = "/getuseraccount", method = RequestMethod.GET)
+	@RequestMapping(value = "/getpatientaccount", method = RequestMethod.GET)
 	@ResponseBody
-	public Object getUserAccount(@ModelAttribute("UserSession") User user) {
+	public Object getPatientAccount(@ModelAttribute("UserSession") User user) {
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		if (null != user) {
@@ -69,9 +82,9 @@ public class UserInfoController {
 	}
 	
 	
-	@RequestMapping(value = "/getuserinfo", method = RequestMethod.GET)
+	@RequestMapping(value = "/getpatientinfo", method = RequestMethod.GET)
 	@ResponseBody
-	public Object getUserInfo(@ModelAttribute("UserSession") User user) {
+	public Object getPatientInfo(@ModelAttribute("UserSession") User user) {
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		String userId = user.getUserId();
@@ -85,14 +98,14 @@ public class UserInfoController {
 			map.put("result", userinfo);
 		} else {
 			map.put("success", false);
-			map.put("message", "未找到该用户得基本信息.");
+			map.put("message", "未找到该用户的基本信息.");
 		}
 		return map;
 	}
 	
-	@RequestMapping(value = "/edituser", method = RequestMethod.POST)
+	@RequestMapping(value = "/editpatient", method = RequestMethod.POST)
 	@ResponseBody
-	public Object editUser(User user, HttpServletRequest request, HttpSession session, ModelMap model) {
+	public Object editPatient(User user, HttpServletRequest request, HttpSession session, ModelMap model) {
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		Date registdate = DateConvert.String2DateTime(request.getParameter("user_registDate"));
@@ -112,9 +125,9 @@ public class UserInfoController {
 	}
 	
 	
-	@RequestMapping(value = "/edituserinfo", method = RequestMethod.POST)
+	@RequestMapping(value = "/editpatientinfo", method = RequestMethod.POST)
 	@ResponseBody
-	public Object editUserInfo(UserInfo userinfo, HttpServletRequest request) {
+	public Object editPatientInfo(UserInfo userinfo, HttpServletRequest request) {
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		String birthday_str = request.getParameter("userinfo_birthday");
@@ -133,19 +146,21 @@ public class UserInfoController {
 	}
 	
 	
-	/******************************用户医生信息********************************/
+	/**************************************************************************
+	** 患者医生信息
+	**************************************************************************/
 	@RequestMapping(value = "/mydoctor", method = RequestMethod.GET)
 	public ModelAndView myDoctor() {
-		return new ModelAndView("/userinfo/mydoctor");
+		return new ModelAndView("/ptinfomgmt/mydoctor");
 	}
 	
-	@RequestMapping(value = "/getmydoctors", method = RequestMethod.GET)
+	@RequestMapping(value = "/getmydoctor", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getMyDoctors(@ModelAttribute("UserSession") User user) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		Object body = null;
 
-		if(null!=(body = spSrv.executeSP("getuserdoctor", new Object[]{ user.getUserId() }))) {
+		if(null!=(body = spSrv.executeSP("getpatientdoctor", new Object[]{ user.getUserId() }))) {
 			map.put("success", true);
 			map.put("result", body);
 		} else {
@@ -177,5 +192,34 @@ public class UserInfoController {
 			
 		return map;
 	}
+	
+	
+	/**************************************************************************
+	** 患者亲属信息
+	**************************************************************************/
+	@RequestMapping(value = "/myfamily", method = RequestMethod.GET)
+	public ModelAndView myFamily() {
+		return new ModelAndView("/ptinfomgmt/myfamily");
+	}
+	
+	@RequestMapping(value = "/getmyfamily", method = RequestMethod.GET)
+	@ResponseBody
+	public Object getMyFamily(@ModelAttribute("UserSession") User user) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Object body = null;
+
+		if(null!=(body = spSrv.executeSP("getpatientfamily", new Object[]{ user.getUserId() }))) {
+			map.put("success", true);
+			map.put("result", body);
+		} else {
+			map.put("success", false);
+		}
+
+		return map;
+	}
+	
+	
+	
+	
 	
 }

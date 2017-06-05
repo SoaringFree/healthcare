@@ -56,7 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="main-container" id="main-container">
     	<!-- #section:basics/side bar -->
 		<div id="sidebar" class="sidebar responsive">
-			<%@ include file="../shared/doctormenu.jsp" %>
+			<%@ include file="../shared/patientmenu.jsp" %>
 		</div>
 		
 		<!-- /section:basics/side bar -->
@@ -101,10 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="input-append center">
 								<input style="height:32px" id="startTime" name="startTime" class="datepicker"  type="text" placeholder="起始日期" />
         						<input style="height:32px" id="endTime" name="endTime" class="datepicker" type="text" placeholder="结束日期" />
-						        <select style="height:32px;" id="myPatient" name="myPatient">
-								  <option value="0">患者选择</option>
-								</select>
-						        <button style="height:32px" class="btn btn-primary btn-xs"  type="button" onclick="getMyPatientSpo2List()">
+						        <button style="height:32px" class="btn btn-primary btn-xs"  type="button" onclick="getMySpo2List()">
 						        	<i class="glyphicon glyphicon-search white"></i>查询
 						        </button>
 						    </div>
@@ -115,8 +112,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<tr>
 										<th style="text-align:center;">序号</th>
 										<th style="text-align:center; display:none">ID</th>
-										<th style="text-align:center;">用户名</th>
-										<th style="text-align:center;">姓名</th>
 										<th style="text-align:center;">血氧饱和度（%）</th>
 										<th style="text-align:center;">脉率（次/分）</th>
 										<th style="text-align:center;">时间</th>
@@ -156,8 +151,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var spo2List = null;
 
 		$(document).ready(function() {
-			getMyPatient();
-			getMyPatientSpo2List();
+			getMySpo2List();
 
 		    $('.datepicker').datetimepicker({
 		        language: 'zh-CN',//显示中文
@@ -170,34 +164,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  
 		});
 
-		function getMyPatient() {
-			$.ajax({
-				type: "GET",
-				url: "<%=path%>/drdatamgmt/getmypatient",
-				data: {},
-				success: function(data) {
-					if (data.success == true) {
-						initSelecte(data.result);
-					} else {
-						alert("信息加载失败，请重试.");
-					}
-				}
-			});
-		}
-		
-		function initSelecte(patient) {
-			if (null != patient) {
-				$.each(patient, function(index, item) {
-					$("#myPatient").append("<option value='" + item.patientId + "'>" + item.userName + "</option>");
-				});
-			}
-		}
-
 
 		/****************************** 患者血氧信息 ********************************/
 	
-		function getMyPatientSpo2List() {
-			var url= "<%=basePath%>/drdatamgmt/getmypatientspo2data";
+		function getMySpo2List() {
+			var url= "<%=basePath%>/ptdatamgmt/getmyspo2data";
 			loading("loading_spo2list");
 
 			$.ajax({
@@ -206,8 +177,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				type: "GET",
 				data: {
 					page: 1, 
-					rows: 10, 
-					patientId: $("#myPatient").val(), 
+					rows: 10,  
 					startTime: $("#startTime").val(), 
 					endTime: $("#endTime").val()
 				},
@@ -254,8 +224,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								type: "GET",
 								data: {
 									page: page, 
-									rows: 10, 
-									patientId: $("#myPatient").val(), 
+									rows: 10,  
 									startTime: $("#startTime").val(), 
 									endTime: $("#endTime").val()
 								},
@@ -283,8 +252,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					var tr = $("<tr></tr>");
 					var td1 = $('<td>' + ((page-1)*10 + index + 1) + '</td>');
 					var td2 = $('<td style="display:none;">'+ item.id + '</td>');
-					var td3 = $('<td>' + item.patientId		+ '</td>');
-					var td4 = $('<td>' + item.userName		+ '</td>');
 					var td5 = $('<td>' + parseInt(item.bloodOxygen, 16)	+ '</td>');
 					var td6 = $('<td>' + parseInt(item.pulseRate, 16)	+ '</td>');
 					var td7 = $('<td>' + item.measureDate	+ '</td>');
@@ -297,7 +264,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						td8 = $('<td><span class="label label-primary arrowed arrowed-in-right">偏低</span></td>');
 					} 
 	
-					tr.append(td1).append(td2).append(td3).append(td4).append(td5).append(td6).append(td7).append(td8);
+					tr.append(td1).append(td2).append(td5).append(td6).append(td7).append(td8);
 					$("#spo2list_tby").append(tr);
 				});
 			}

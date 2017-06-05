@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.healthcare.model.base.JavaBean;
 
 /**
- * 
+ * 亲属 -> 患者
  * @Title: FamilyInfo
  * @Description: 亲属信息表 
  *
@@ -16,7 +16,7 @@ import com.healthcare.model.base.JavaBean;
  * @date: 2017年1月9日 上午10:03:16
  *
  */
-public class PatientFamily extends JavaBean {
+public class FamilyPatient extends JavaBean {
 	
 	/**
 	 * 亲属用户名
@@ -53,10 +53,10 @@ public class PatientFamily extends JavaBean {
 	
 	/************************** 存储过程结果集包含 ************************/
 	/**
-	 * 亲属姓名
+	 * 患者姓名
 	 */
 	@JsonInclude(Include.NON_NULL)
-	private String familyName;
+	private String userName;
 	
 
 	public String getFamilyId() {
@@ -83,13 +83,13 @@ public class PatientFamily extends JavaBean {
 		this.relationship = relationship;
 	}
 
-	public String getFamilyName() {
-		return familyName;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setFamilyName(String familyName) {
-		this.familyName = familyName;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
-	
+
 	
 }

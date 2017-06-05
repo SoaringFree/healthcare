@@ -18,8 +18,8 @@ public class PatientFamilyDao extends BaseDao<PatientFamily> {
 		sb.append(" SET ");
 		
 		sb.append("FamilyId=:familyId,");
-		sb.append("UserId=:userId,");
-		sb.append("Expert=:expert,");
+		sb.append("PatientId=:patientId,");
+		sb.append("Relationship=:relationship,");
 		sb.append("BindDate=:bindDate,");
 		
 		sb.append(" WHERE Id=:id ");
@@ -37,7 +37,7 @@ public class PatientFamilyDao extends BaseDao<PatientFamily> {
 				PatientFamily bean = new PatientFamily();
 				bean.setId(rs.getInt("Id"));
 				bean.setFamilyId(rs.getString("FamilyId"));
-				bean.setUserId(rs.getString("UserId"));
+				bean.setPatientId(rs.getString("PatientId"));
 				bean.setRelationship(rs.getString("Relationship"));
 				bean.setBindDate(rs.getTimestamp("BindDate"));
 				return bean;

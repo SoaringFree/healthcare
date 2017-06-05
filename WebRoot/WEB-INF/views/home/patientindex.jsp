@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="main-container" id="main-container">
     	<!-- #section:basics/side bar -->
 		<div id="sidebar" class="sidebar responsive">
-			<%@ include file="../shared/usermenu.jsp" %>
+			<%@ include file="../shared/patientmenu.jsp" %>
 		</div>
 		
 		<!-- /section:basics/side bar -->

@@ -58,28 +58,28 @@ String baseUserMenuPath = request.getScheme()+"://"+request.getServerName()+":"+
 		<b class="arrow"></b>
 		<ul class="submenu">
 			<li class="">
-				<a href="<%=userMenuPath%>/test/ecg">
+				<a href="<%=userMenuPath%>/fmdatamgmt/electrocardiogram">
 					<i class="menu-icon fa fa-caret-right"></i>
 					心电数据
 				</a>
 				<b class="arrow"></b>
 			</li>
 			<li class="">
-				<a href="<%=userMenuPath%>/datamanage/bloodoxygenindex">
+				<a href="<%=userMenuPath%>/fmdatamgmt/bloodoxygen">
 					<i class="menu-icon fa fa-caret-right"></i>
 					血氧数据
 				</a>
 				<b class="arrow"></b>
 			</li>
 			<li class="">
-				<a href="<%=userMenuPath%>/datamanage/bloodpressureindex">
+				<a href="<%=userMenuPath%>/fmdatamgmt/bloodpressure">
 					<i class="menu-icon fa fa-caret-right"></i>
 					血压数据
 				</a>
 				<b class="arrow"></b>
 			</li>
 			<li class="">
-				<a href="<%=userMenuPath%>/datamanage/bloodglucoseindex">
+				<a href="<%=userMenuPath%>/fmdatamgmt/bloodglucose">
 					<i class="menu-icon fa fa-caret-right"></i>
 					血糖数据
 				</a>
@@ -98,13 +98,7 @@ String baseUserMenuPath = request.getScheme()+"://"+request.getServerName()+":"+
 		
 		<b class="arrow"></b>
 		<ul class="submenu">
-			<li class="">
-				<a href="<%=userMenuPath%>/test/chat">
-					<i class="menu-icon fa fa-caret-right"></i>
-					健康咨询
-				</a>
-				<b class="arrow"></b>
-			</li>
+
 			<li class="">
 				<a href="<%=userMenuPath%>/test/advice">
 					<i class="menu-icon fa fa-caret-right"></i>
@@ -114,7 +108,6 @@ String baseUserMenuPath = request.getScheme()+"://"+request.getServerName()+":"+
 			</li>
 		</ul>
 	</li>
-	
 	
 	
 	<li class="">
@@ -127,30 +120,16 @@ String baseUserMenuPath = request.getScheme()+"://"+request.getServerName()+":"+
 		<b class="arrow"></b>
 		<ul class="submenu">
 			<li class="">
-				<a href="<%=userMenuPath%>/userinfo/index">
+				<a href="<%=userMenuPath%>/ptinfomgmt/index">
 					<i class="menu-icon fa fa-caret-right"></i>
 					个人资料
 				</a>
 				<b class="arrow"></b>
 			</li>
 			<li class="">
-				<a href="<%=userMenuPath%>/userinfo/mydoctor">
-					<i class="menu-icon fa fa-caret-right"></i>
-					我的医生
-				</a>
-				<b class="arrow"></b>
-			</li>
-			<li class="">
-				<a href="<%=userMenuPath%>/doctormanage/bindingindex">
+				<a href="<%=userMenuPath%>/ptinfomgmt/myfamily">
 					<i class="menu-icon fa fa-caret-right"></i>
 					我的亲属
-				</a>
-				<b class="arrow"></b>
-			</li>
-			<li class="">
-				<a href="<%=userMenuPath%>/doctormanage/bindingindex">
-					<i class="menu-icon fa fa-caret-right"></i>
-					紧急联系人
 				</a>
 				<b class="arrow"></b>
 			</li>
@@ -184,46 +163,6 @@ String baseUserMenuPath = request.getScheme()+"://"+request.getServerName()+":"+
 				<a href="<%=userMenuPath%>/account/login">
 					<i class="menu-icon fa fa-power-off"></i>
 					<span class="menu-text">退出登录</span>
-				</a>
-				<b class="arrow"></b>
-			</li>
-		</ul>
-	</li>
-	
-	<li class="">
-		<a href="#" class="dropdown-toggle">
-			<i class="menu-icon fa fa-list-ul"></i>
-			<span class="menu-text">测试</span>
-			<b class="arrow fa fa-angle-down"></b>
-		</a>
-		
-		<b class="arrow"></b>
-		<ul class="submenu">
-			<li class="">
-				<a href="<%=userMenuPath%>/test/webindex1">
-					<i class="menu-icon fa fa-caret-right"></i>
-					测试1
-				</a>
-				<b class="arrow"></b>
-			</li>
-			<li class="">
-				<a href="<%=userMenuPath%>/test/webindex2">
-					<i class="menu-icon fa fa-caret-right"></i>
-					测试2
-				</a>
-				<b class="arrow"></b>
-			</li>
-			<li class="">
-				<a href="<%=userMenuPath%>/test/webindex3">
-					<i class="menu-icon fa fa-caret-right"></i>
-					测试3
-				</a>
-				<b class="arrow"></b>
-			</li>
-			<li class="">
-				<a href="<%=userMenuPath%>/test/webindex4">
-					<i class="menu-icon fa fa-caret-right"></i>
-					测试4
 				</a>
 				<b class="arrow"></b>
 			</li>

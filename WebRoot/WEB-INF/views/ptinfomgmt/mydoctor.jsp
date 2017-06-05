@@ -45,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="main-container" id="main-container">
     	<!-- #section:basics/side bar -->
 		<div id="sidebar" class="sidebar responsive">
-			<%@ include file="../shared/usermenu.jsp" %>
+			<%@ include file="../shared/patientmenu.jsp" %>
 		</div>
 		
 		<!-- /section:basics/side bar -->
@@ -221,17 +221,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		$(document).ready(function() {
 			loadDepartments();
-			getUserDoctors();
+			getPatientDoctors();
 		});
 	
 
 		/****************************** 患者医生信息 ********************************/
-		function getUserDoctors() {
+		function getPatientDoctors() {
 			userDoctors = null;
 			loading("loading_doctor");
 			$.ajax({
 				type: "GET",
-				url: "<%=path%>/userinfo/getmydoctors",
+				url: "<%=path%>/ptinfomgmt/getmydoctor",
 				data: {},
 				success: function(data) {
 					loading("loading_doctor", false);
@@ -304,7 +304,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	function detail(index) {
     		$.ajax({
 				type: "GET",
-				url: "<%=path%>/userinfo/getdoctorinfo",
+				url: "<%=path%>/ptinfomgmt/getdoctorinfo",
 				data: {doctorId: userDoctors[index].doctorId},
 				success: function(data) {
 					createDepartmentSelect("detail_departmentId", departments);

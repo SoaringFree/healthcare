@@ -19,7 +19,12 @@ import com.healthcare.dao.get.GetDoctorPatientEcgDao;
 import com.healthcare.dao.get.GetDoctorPatientGluDao;
 import com.healthcare.dao.get.GetDoctorPatientSpo2Dao;
 import com.healthcare.dao.get.GetElectrocardiogramDao;
-import com.healthcare.dao.get.GetFamilyInfoDao;
+import com.healthcare.dao.get.GetFamilyPatientBpDao;
+import com.healthcare.dao.get.GetFamilyPatientDao;
+import com.healthcare.dao.get.GetFamilyPatientEcgDao;
+import com.healthcare.dao.get.GetFamilyPatientGluDao;
+import com.healthcare.dao.get.GetFamilyPatientSpo2Dao;
+import com.healthcare.dao.get.GetPatientFamilyDao;
 import com.healthcare.dao.get.GetUserDao;
 import com.healthcare.dao.get.GetPatientDoctorDao;
 
@@ -39,30 +44,33 @@ public class StoredProcedureService {
 		private GetPatientDoctorDao getpatientdoctorDao;
 		
 		@Autowired
-		private GetFamilyInfoDao getfamilyinfoDao;
+		private GetPatientFamilyDao getpatientfamilyDao;
 		
+			
+		/**************************************************************************
+		** 医生或患者，获取生理数据
+		**************************************************************************/
 		@Autowired
 		private GetElectrocardiogramDao getelectrocardiogramDao;
-		
 		@Autowired
 		private GetBloodGlucoseDao getbloodglucoseDao;
-		
 		@Autowired
 		private GetBloodOxygenDao getbloodoxygenDao;
-		
 		@Autowired
 		private GetBloodPressureDao getbloodpressureDao;
+		
 		
 		@Autowired
 		private GetDeviceDao getdeviceDao;
 		
-		@Autowired
-		private GetDoctorPatientDao getdoctorpatientDao;
+		
 		
 		
 		/**************************************************************************
 		** 医生或患者，获取生理数据
 		**************************************************************************/
+		@Autowired
+		private GetDoctorPatientDao getdoctorpatientDao;
 		@Autowired
 		private GetDoctorPatientEcgDao getdoctorpatientecgDao;
 		@Autowired
@@ -71,6 +79,21 @@ public class StoredProcedureService {
 		private GetDoctorPatientGluDao getdoctorpatientgluDao;
 		@Autowired
 		private GetDoctorPatientSpo2Dao getdoctorpatientspo2Dao;
+		
+		
+		/**************************************************************************
+		** 亲属，获取生理数据
+		**************************************************************************/
+		@Autowired
+		private GetFamilyPatientDao getfamilypatientDao;
+		@Autowired
+		private GetFamilyPatientEcgDao getfamilypatientecgDao;
+		@Autowired
+		private GetFamilyPatientBpDao getfamilypatientbpDao;
+		@Autowired
+		private GetFamilyPatientGluDao getfamilypatientgluDao;
+		@Autowired
+		private GetFamilyPatientSpo2Dao getfamilypatientspo2Dao;
 		
 		
 		

@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>血氧数据</title>
+    <title>心电数据</title>
     
 	<%@ include file="../shared/cssandjs.jsp" %>
 	
@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  	height:32px;
 		}
 		
-		#spo2list_tby > tr > td {
+		#ecglist_tby > tr > td {
 			text-align: center; 
 			vertical-align: middle;
 		}
@@ -56,7 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="main-container" id="main-container">
     	<!-- #section:basics/side bar -->
 		<div id="sidebar" class="sidebar responsive">
-			<%@ include file="../shared/doctormenu.jsp" %>
+			<%@ include file="../shared/familymenu.jsp" %>
 		</div>
 		
 		<!-- /section:basics/side bar -->
@@ -71,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<a href="#">健康数据</a>
 						</li>
 						<li>
-							<a href="#">血氧数据</a>
+							<a href="#">心电数据</a>
 						</li>
 					</ul><!-- /.breadcrumb -->
 				</div>
@@ -83,7 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="widget-box">
 					<div class="box-inner">
 						<div class="widget-header">
-							<h5 class="widget-title" ><b>血氧数据</b></h5>
+							<h5 class="widget-title" ><b>心电数据</b></h5>
 		                    <div class="widget-toolbar">
 								<a href="#" data-action="fullscreen" class="orange2">
 		                            <i class="ace-icon fa fa-expand"></i>
@@ -99,12 +99,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<br />
 							<!--  multi-condition query -->
 							<div class="input-append center">
-								<input style="height:32px" id="startTime" name="startTime" class="datepicker"  type="text" placeholder="起始日期" />
+					            <input style="height:32px" id="startTime" name="startTime" class="datepicker"  type="text" placeholder="起始日期" />
         						<input style="height:32px" id="endTime" name="endTime" class="datepicker" type="text" placeholder="结束日期" />
 						        <select style="height:32px;" id="myPatient" name="myPatient">
-								  <option value="0">患者选择</option>
+								  <option value="0">选择亲属</option>
 								</select>
-						        <button style="height:32px" class="btn btn-primary btn-xs"  type="button" onclick="getMyPatientSpo2List()">
+						        <button style="height:32px" class="btn btn-primary btn-xs"  type="button" onclick="getMyPatientEcgList()">
 						        	<i class="glyphicon glyphicon-search white"></i>查询
 						        </button>
 						    </div>
@@ -117,19 +117,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<th style="text-align:center; display:none">ID</th>
 										<th style="text-align:center;">用户名</th>
 										<th style="text-align:center;">姓名</th>
-										<th style="text-align:center;">血氧饱和度（%）</th>
-										<th style="text-align:center;">脉率（次/分）</th>
+										<th style="text-align:center;">心率（次/分）</th>
 										<th style="text-align:center;">时间</th>
 										<th style="text-align:center;">状态</th>
+										<th style="text-align:center;">心电图</th>
 									</tr>
 								</thead>
-								<tbody id="spo2list_tby">
+								<tbody id="ecglist_tby">
 									<tr>
 									</tr>
 								</tbody>
 							</table>
 							
-							<div id="loading_spo2list" style="display:none;" class="center">
+							<div id="loading_ecglist" style="display:none;" class="center">
 								<span>
 								<img src="<%=path %>/assets/img/ajax-loaders/ajax-loader-10.gif" title="img/ajax-loaders/ajax-loader-10.gif">
 								&nbsp;正在加载...
@@ -150,15 +150,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div><!-- /.section:basics/sidebar -->
     </div><!-- /.main container -->
 
-   
+	
+	 <!-- detail / ecg -->
+	<div class="modal fade bold" style="display: none;" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+	    <div class="modal-dialog" style="width:900px">
+	        <div class="modal-content">
+	            <div class="modal-header no-padding">
+	                <div class="table-header" style="text-align:center">
+	                    <button type="button" class="close"  data-dismiss="modal" aria-hidden="true">
+	                        <span class="white">&times;</span>
+	                    </button>
+                    	<span id=ecg_title style="font-size:16px;color:black;"><b>心电图</b></span>
+	                </div>
+	            </div>
+	            
+	            <div class="modal-body" style="padding-bottom:10px">
+	            	<div id="ecg_chart" style="width:860px">
+	            	
+	            	
+	            	</div>
+
+	        	</div>
+	    	</div>
+	    </div>
+    </div>
+    
+
     <script type="text/javascript">
 
-		var spo2List = null;
-
+		var ecgList = null;
+		var chart = null;
+		
 		$(document).ready(function() {
+			initChart();
 			getMyPatient();
-			getMyPatientSpo2List();
-
+			getMyPatientEcgList();
+			
 		    $('.datepicker').datetimepicker({
 		        language: 'zh-CN',//显示中文
 				format: 'yyyy-mm-dd',//显示格式
@@ -169,11 +196,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    });
  
 		});
-
+		
+		
 		function getMyPatient() {
 			$.ajax({
 				type: "GET",
-				url: "<%=path%>/drdatamgmt/getmypatient",
+				url: "<%=path%>/fmdatamgmt/getmypatient",
 				data: {},
 				success: function(data) {
 					if (data.success == true) {
@@ -192,14 +220,100 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				});
 			}
 		}
+		
 
+		function initChart() {
+			
+			Highcharts.setOptions({
+				lang: {
+					resetZoom: "返回",
+				}
+			});
+		
+			chart = new Highcharts.StockChart('ecg_chart',{
+				
+				chart: {
+					zoomType: 'xy',
+				},
+		        exporting: {
+		            enabled: false       //去掉图像右上角的打印保存功能
+		        },
+		        title: {
+		            text: '',
+		            x: 0 //center
+		        },
+		        credits: {
+		            enabled: false     //去掉highcharts网站url
+		        },
+		        xAxis: {
+	                tickInterval: 1, // 坐标轴刻度间隔
+	                tickWidth: 0,
+	                gridLineColor: '#FA7A7A',
+	                title: {
+	                    text: '时长 30s'
+	                },
+	                labels:{
+						enabled: false
+					},
+	            },
+		        yAxis: { 
+	                tickInterval: 1, // 坐标轴刻度间隔
+	                tickWidth: 0,
+	                gridLineColor: '#FA7A7A',
+	                labels:{  
+                        // 标签位置  
+                        align: 'right', 
+                        x: 30,
+                		y: 0,
+                        // 标签格式化  
+                        formatter: function(){  
+                            return this.value + 'mV';  
+                        }  
+                    }, 
+                    title: {
+	                    text: '-'
+	                },
+	            },
+	            plotOptions: {
+	            	series: {
+	                    cursor: 'pointer',
+	                    marker: {
+	                        lineWidth: 1
+	                    }
+	                },
+	            },
+		        tooltip: {
+		             series: {
+	                    cursor: 'pointer',
+	                    marker: {
+	                        lineWidth: 1
+	                    }
+	                },
+		        },
+		        legend: {
+		            enabled: false,
+		        },
+		        series: [{
+		        	name: '心电图',
+		        	data: [],
+		        	color: '#000000',
+		        	lineWidth: 1,
+		        }],
+		        rangeSelector: {  // 左上角选择则其
+	                enabled: false,
+	            },
+			});       
+	    };
 
-		/****************************** 患者血氧信息 ********************************/
+		
+		
+
+		/****************************** 患者心电信息 ********************************/
 	
-		function getMyPatientSpo2List() {
-			var url= "<%=basePath%>/drdatamgmt/getmypatientspo2data";
-			loading("loading_spo2list");
-
+		function getMyPatientEcgList() {
+			var url= "<%=basePath%>/fmdatamgmt/getmypatientecgdata";
+			loading("loading_ecglist");
+						
 			$.ajax({
 				url: url,
 				datatype: "json",
@@ -212,11 +326,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					endTime: $("#endTime").val()
 				},
 				success: function(data) {
-					loading("loading_spo2list", false);
+					loading("loading_ecglist", false);
 					
-					spo2List = null;
-					spo2List = data.result;
-	                initSpo2List(spo2List, data.page);
+					ecgList = null;
+					ecgList = data.result;
+	                initECGList(ecgList, data.page);
 					
 					var currentPage = data.page;
 					var totalPages = data.total;
@@ -247,7 +361,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    },
 	                    onPageClicked: function (event, originalEvent, type, page) {
 
-	                    	loading("loading_spo2list");
+	                    	loading("loading_ecglist");
 	                        $.ajax({
 								url: url,
 								datatype: "json",
@@ -260,10 +374,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									endTime: $("#endTime").val()
 								},
 								success: function(data) {
-									spo2List = null;
-									spo2List = data.result;
-									loading("loading_spo2list", false);
-					                initSpo2List(spo2List, data.page);
+									ecgList = null;
+									ecgList = data.result;
+									loading("loading_ecglist", false);
+					                initECGList(ecgList, data.page);
 					            }
 					        });
 					     }  
@@ -275,32 +389,72 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		};
 		
 		
-		/* 装填血氧数据信息 */
-		function initSpo2List(spo2List, page) {
-			$("#spo2list_tby tr").remove();
-			if (null != spo2List) {
-				$.each(spo2List, function(index, item) {
+		/* 装填心电记录信息 */
+		/* 装填用户信息 */
+		function initECGList(ecgList, page) {
+			$("#ecglist_tby tr").remove();
+			if (null != ecgList) {
+				$.each(ecgList, function(index, item) {
+					var heartRate = parseInt(item.heartRate, 16);
+				
 					var tr = $("<tr></tr>");
 					var td1 = $('<td>' + ((page-1)*10 + index + 1) + '</td>');
 					var td2 = $('<td style="display:none;">'+ item.id + '</td>');
 					var td3 = $('<td>' + item.patientId		+ '</td>');
 					var td4 = $('<td>' + item.userName		+ '</td>');
-					var td5 = $('<td>' + parseInt(item.bloodOxygen, 16)	+ '</td>');
-					var td6 = $('<td>' + parseInt(item.pulseRate, 16)	+ '</td>');
-					var td7 = $('<td>' + item.measureDate	+ '</td>');
+					var td5 = $('<td>' + 	heartRate		+ '</td>');
+					var td6 = $('<td>' + item.measureDate	+ '</td>');
 					
-					var spo2 = parseInt(item.bloodOxygen, 16);
-					var td8;
-					if (spo2 >= 95) {
-						td8 = $('<td><span class="label label-success arrowed arrowed-in-right">正常</span></td>');
+					var td7;
+					if (heartRate >= 60 && heartRate <= 100) {
+						td7 = $('<td><span class="label label-success arrowed arrowed-in-right">正常</span></td>');
+					} else if (heartRate < 60) {
+						td7 = $('<td><span class="label label-primary arrowed arrowed-in-right">偏低</span></td>');
 					} else {
-						td8 = $('<td><span class="label label-primary arrowed arrowed-in-right">偏低</span></td>');
-					} 
+						td7 = $('<td><span class="label label-warning arrowed arrowed-in-right">偏高</span></td>');
+					}
+					var td8 = $('<td>' +
+	            					'<a class="btn btn-success btn-xs"  onclick=" detail_ecg(' + item.id + ', ' + index + ') ">'  +
+	                					'<i class="glyphicon glyphicon-zoom-in icon-white" ></i>' +
+	                						'详情' +
+	            					'</a>' +
+	        					'</td>'
+	        					);
 	
-					tr.append(td1).append(td2).append(td3).append(td4).append(td5).append(td6).append(td7).append(td8);
-					$("#spo2list_tby").append(tr);
+					tr.append(td1).append(td2).append(td3).append(td4)
+						.append(td5).append(td6).append(td7).append(td8);
+					$("#ecglist_tby").append(tr);
 				});
 			}
+		}
+
+		
+		/****************************** 心电图 ********************************/
+		var ecg = null;
+		function detail_ecg(id, index) {
+			ecg = null;
+			$('#detailModal').modal('show');
+			setTitle(index);
+			
+			$.ajax({
+				type: "GET",
+				url: "<%=path%>/fmdatamgmt/getecgbyid",
+				data: {id: id},
+				success: function(data) {
+					if (data.success == true) {
+						chart.series[0].setData(data.ecgArr);
+					} else {
+						alert("信息加载失败，请重试.");
+					}
+				}
+			});
+		}
+		
+		function setTitle(index) {
+			var data = ecgList[index];
+			$("#ecg_title b").remove();
+			var t = $("<b>" + data.userName+ " [" + data.measureDate + "] 的心电图</b>");
+			$("#ecg_title").append(t);
 		}
 
 

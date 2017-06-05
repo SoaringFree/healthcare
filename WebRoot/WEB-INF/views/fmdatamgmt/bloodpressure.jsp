@@ -9,13 +9,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>血氧数据</title>
+    <title>血压数据</title>
     
 	<%@ include file="../shared/cssandjs.jsp" %>
 	
 	<script src="<%=path%>/assets/components/bootstrap-paginator/bootstrap-paginator.js"></script>	
-	<script src="<%=path%>/assets/highcharts/highstock.js"></script>
-	<script src="<%=path%>/assets/highcharts/grid-light.js"></script>
 	
 	<style type="text/css">
 		input, select, button {
@@ -28,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  	height:32px;
 		}
 		
-		#spo2list_tby > tr > td {
+		#bplist_tby > tr > td {
 			text-align: center; 
 			vertical-align: middle;
 		}
@@ -56,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="main-container" id="main-container">
     	<!-- #section:basics/side bar -->
 		<div id="sidebar" class="sidebar responsive">
-			<%@ include file="../shared/doctormenu.jsp" %>
+			<%@ include file="../shared/familymenu.jsp" %>
 		</div>
 		
 		<!-- /section:basics/side bar -->
@@ -71,7 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<a href="#">健康数据</a>
 						</li>
 						<li>
-							<a href="#">血氧数据</a>
+							<a href="#">血压数据</a>
 						</li>
 					</ul><!-- /.breadcrumb -->
 				</div>
@@ -83,7 +81,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="widget-box">
 					<div class="box-inner">
 						<div class="widget-header">
-							<h5 class="widget-title" ><b>血氧数据</b></h5>
+							<h5 class="widget-title" ><b>血压数据</b></h5>
 		                    <div class="widget-toolbar">
 								<a href="#" data-action="fullscreen" class="orange2">
 		                            <i class="ace-icon fa fa-expand"></i>
@@ -99,12 +97,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<br />
 							<!--  multi-condition query -->
 							<div class="input-append center">
-								<input style="height:32px" id="startTime" name="startTime" class="datepicker"  type="text" placeholder="起始日期" />
+					            <input style="height:32px" id="startTime" name="startTime" class="datepicker"  type="text" placeholder="起始日期" />
         						<input style="height:32px" id="endTime" name="endTime" class="datepicker" type="text" placeholder="结束日期" />
 						        <select style="height:32px;" id="myPatient" name="myPatient">
-								  <option value="0">患者选择</option>
+								  <option value="0">选择亲属</option>
 								</select>
-						        <button style="height:32px" class="btn btn-primary btn-xs"  type="button" onclick="getMyPatientSpo2List()">
+						        <button style="height:32px" class="btn btn-primary btn-xs"  type="button" onclick="getMyPatientBpList()">
 						        	<i class="glyphicon glyphicon-search white"></i>查询
 						        </button>
 						    </div>
@@ -117,19 +115,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<th style="text-align:center; display:none">ID</th>
 										<th style="text-align:center;">用户名</th>
 										<th style="text-align:center;">姓名</th>
-										<th style="text-align:center;">血氧饱和度（%）</th>
+										<th style="text-align:center;">收缩压</th>
+										<th style="text-align:center;">舒张压</th>
+										<th style="text-align:center;">平均压（mmHg）</th>
 										<th style="text-align:center;">脉率（次/分）</th>
 										<th style="text-align:center;">时间</th>
 										<th style="text-align:center;">状态</th>
 									</tr>
 								</thead>
-								<tbody id="spo2list_tby">
+								<tbody id="bplist_tby">
 									<tr>
 									</tr>
 								</tbody>
 							</table>
 							
-							<div id="loading_spo2list" style="display:none;" class="center">
+							<div id="loading_bplist" style="display:none;" class="center">
 								<span>
 								<img src="<%=path %>/assets/img/ajax-loaders/ajax-loader-10.gif" title="img/ajax-loaders/ajax-loader-10.gif">
 								&nbsp;正在加载...
@@ -150,14 +150,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div><!-- /.section:basics/sidebar -->
     </div><!-- /.main container -->
 
-   
+
     <script type="text/javascript">
 
-		var spo2List = null;
+		var bpList = null;
 
 		$(document).ready(function() {
 			getMyPatient();
-			getMyPatientSpo2List();
+			getMyPatientBpList();
 
 		    $('.datepicker').datetimepicker({
 		        language: 'zh-CN',//显示中文
@@ -169,11 +169,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    });
  
 		});
-
+		
+		
 		function getMyPatient() {
 			$.ajax({
 				type: "GET",
-				url: "<%=path%>/drdatamgmt/getmypatient",
+				url: "<%=path%>/fmdatamgmt/getmypatient",
 				data: {},
 				success: function(data) {
 					if (data.success == true) {
@@ -194,12 +195,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 
 
-		/****************************** 患者血氧信息 ********************************/
+		/****************************** 患者血压信息 ********************************/
 	
-		function getMyPatientSpo2List() {
-			var url= "<%=basePath%>/drdatamgmt/getmypatientspo2data";
-			loading("loading_spo2list");
-
+		function getMyPatientBpList() {
+			var url= "<%=basePath%>/fmdatamgmt/getmypatientbpdata";
+			loading("loading_bplist");
+	
 			$.ajax({
 				url: url,
 				datatype: "json",
@@ -212,11 +213,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					endTime: $("#endTime").val()
 				},
 				success: function(data) {
-					loading("loading_spo2list", false);
+					loading("loading_bplist", false);
 					
-					spo2List = null;
-					spo2List = data.result;
-	                initSpo2List(spo2List, data.page);
+					bpList = null;
+					bpList = data.result;
+	                initBpList(bpList, data.page);
 					
 					var currentPage = data.page;
 					var totalPages = data.total;
@@ -247,7 +248,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    },
 	                    onPageClicked: function (event, originalEvent, type, page) {
 
-	                    	loading("loading_spo2list");
+	                    	loading("loading_bplist");
 	                        $.ajax({
 								url: url,
 								datatype: "json",
@@ -260,10 +261,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									endTime: $("#endTime").val()
 								},
 								success: function(data) {
-									spo2List = null;
-									spo2List = data.result;
-									loading("loading_spo2list", false);
-					                initSpo2List(spo2List, data.page);
+									bpList = null;
+									bpList = data.result;
+									loading("loading_bplist", false);
+					                initBpList(bpList, data.page);
 					            }
 					        });
 					     }  
@@ -275,30 +276,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		};
 		
 		
-		/* 装填血氧数据信息 */
-		function initSpo2List(spo2List, page) {
-			$("#spo2list_tby tr").remove();
-			if (null != spo2List) {
-				$.each(spo2List, function(index, item) {
+		/* 装填血压数据信息 */
+		function initBpList(bpList, page) {
+			$("#bplist_tby tr").remove();
+			if (null != bpList) {
+				$.each(bpList, function(index, item) {
 					var tr = $("<tr></tr>");
 					var td1 = $('<td>' + ((page-1)*10 + index + 1) + '</td>');
 					var td2 = $('<td style="display:none;">'+ item.id + '</td>');
 					var td3 = $('<td>' + item.patientId		+ '</td>');
 					var td4 = $('<td>' + item.userName		+ '</td>');
-					var td5 = $('<td>' + parseInt(item.bloodOxygen, 16)	+ '</td>');
-					var td6 = $('<td>' + parseInt(item.pulseRate, 16)	+ '</td>');
-					var td7 = $('<td>' + item.measureDate	+ '</td>');
+					var td5 = $('<td>' + parseInt(item.systolicPressure, 16)	+ '</td>');
+					var td6 = $('<td>' + parseInt(item.diastolicPressure, 16)	+ '</td>');
+					var td7 = $('<td>' + parseInt(item.meanPressure, 16)	+ '</td>');
+					var td8 = $('<td>' + parseInt(item.pulseRate, 16)	+ '</td>');
+					var td9 = $('<td>' + item.measureDate	+ '</td>');
 					
-					var spo2 = parseInt(item.bloodOxygen, 16);
-					var td8;
-					if (spo2 >= 95) {
-						td8 = $('<td><span class="label label-success arrowed arrowed-in-right">正常</span></td>');
+					var sp = parseInt(item.systolicPressure, 16);
+					var dp = parseInt(item.diastolicPressure, 16);
+					var td10;
+					if (sp >= 150) {
+						td10 = $('<td><span class="label label-warning arrowed arrowed-in-right">偏高</span></td>');
+					} else if (dp <= 70){
+						td10 = $('<td><span class="label label-primary arrowed arrowed-in-right">偏低</span></td>');
 					} else {
-						td8 = $('<td><span class="label label-primary arrowed arrowed-in-right">偏低</span></td>');
-					} 
+						td10 = $('<td><span class="label label-success arrowed arrowed-in-right">正常</span></td>');
+					}
 	
-					tr.append(td1).append(td2).append(td3).append(td4).append(td5).append(td6).append(td7).append(td8);
-					$("#spo2list_tby").append(tr);
+					tr.append(td1).append(td2).append(td3).append(td4).append(td5)
+						.append(td6).append(td7).append(td8).append(td9).append(td10);
+					$("#bplist_tby").append(tr);
 				});
 			}
 		}
